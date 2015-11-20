@@ -11,6 +11,17 @@
     "b2",
     "storage"
   ],
-  "author": "Yakov Khalinsky <yakov@therocketsurgeon.com>",
+  "homepage": "https://github.com/yakovkhalinsky/backblaze-b2",
+  "author": {
+    "name": "Yakov Khalinsky",
+    "email": "yakov@therocketsurgeon.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yakovkhalinsky/backblaze-b2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yakovkhalinsky/backblaze-b2/issues"
+  },
   "license": "MIT"
 }
