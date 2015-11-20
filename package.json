@@ -1,0 +1,16 @@
+{
+  "name": "backblaze-b2",
+  "version": "1.0.0",
+  "description": "Node.js Library for the Backblaze B2 Storage Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backblaze",
+    "b2",
+    "storage"
+  ],
+  "author": "Yakov Khalinsky <yakov@therocketsurgeon.com>",
+  "license": "MIT"
+}
