@@ -8,6 +8,13 @@ This library uses promises, so all actions on a `B2` instance return a promise i
     );
 
 
+### Status of project
+
+At this time not all API features of Backblaze B2 are yet implemented.
+
+Once all API features are implemented, version will be updated to 1.0.x
+
+
 ### Usage
 
 
