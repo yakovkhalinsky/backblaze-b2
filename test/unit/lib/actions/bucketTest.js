@@ -219,4 +219,50 @@ describe('actions/bucket', function() {
 
     });
 
+    describe.only('getUploadUrl', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = {
+                    authorizationToken: 'this_is_your_auth_token',
+                    bucketId: '1234abcd',
+                    uploadUrl: 'https://foo-001.backblaze.com/b2api/v1/b2_upload_file/abcd1234/unicorns_and_rainbows'
+                };
+
+                bucket.getUploadUrl(b2, '1234abcd').then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v1/b2_get_upload_url',
+                    body: "{\"bucketId\":\"1234abcd\"}",
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                bucket.getUploadUrl(b2, '1234abcd').then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
 });

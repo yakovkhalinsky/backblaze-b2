@@ -17,7 +17,6 @@ Once all API features are implemented, version will be updated to 1.0.x
 
 ### Usage
 
-
     var B2 = require('backblaze-b2');
     
     // create b2 object instance
@@ -34,3 +33,12 @@ Once all API features are implemented, version will be updated to 1.0.x
     
     // delete bucket
     b2.deleteBucket(bucketId);  // returns promise
+    
+    // list buckets
+    b2.listBuckets();  // returns promise
+    
+    // update bucket2
+    b2.updateBucket(bucketId, bucketType);  // returns promise
+    
+    // get upload url
+    b2.getUploadUrl(bucketId);  // returns promise
