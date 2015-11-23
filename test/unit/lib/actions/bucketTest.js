@@ -115,4 +115,61 @@ describe('actions/bucket', function() {
 
     });
 
+    describe('list', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = {
+                    buckets:[
+                        {
+                            accountId: '1234abcd',
+                            bucketId: '1234abcd',
+                            bucketName: 'bucket-foo',
+                            bucketType: 'allPrivate'
+                        },
+                        {
+                            accountId: '1234abcd',
+                            bucketId: '2456efgh',
+                            bucketName: 'thngs-bar',
+                            bucketType: 'allPrivate'
+                        }
+                    ]
+                };
+
+                bucket.list(b2).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v1/b2_list_buckets',
+                    body: "{\"accountId\":\"98765\"}",
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                bucket.delete(b2).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
 });
