@@ -219,7 +219,7 @@ describe('actions/bucket', function() {
 
     });
 
-    describe.only('getUploadUrl', function() {
+    describe('getUploadUrl', function() {
 
         describe('with good response', function() {
 
