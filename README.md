@@ -1,4 +1,5 @@
-### Backblaze B2 Node.js Library
+### Backblaze B2 Node.js Library 
+[![Build Status](https://travis-ci.org/yakovkhalinsky/backblaze-b2.svg?branch=master)](https://travis-ci.org/yakovkhalinsky/backblaze-b2)
 
 This library uses promises, so all actions on a `B2` instance return a promise in the following pattern
  
