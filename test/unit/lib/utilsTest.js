@@ -6,10 +6,10 @@ describe('utils', function() {
 
     describe('getAuthHeaderObject', function() {
         it('Should get header object with Base64 encoded Authorization header', function() {
-           var accountId = 'unicorns';
-           var applicationKey = 'rainbows';
+            var accountId = 'unicorns';
+            var applicationKey = 'rainbows';
 
-           expect(utils.getAuthHeaderObject(accountId, applicationKey)).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
+            expect(utils.getAuthHeaderObject(accountId, applicationKey)).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
         });
 
         it('Should throw error given invalid accountId', function() {
@@ -120,7 +120,6 @@ describe('utils', function() {
         var bogusAuthPromise;
         var resolvedJson;
         var rejectMessage;
-        var b2;
         var fn;
         var responseBody;
 
@@ -135,7 +134,6 @@ describe('utils', function() {
                     rejectMessage = message;
                 }
             };
-            b2 = {};
             fn = utils.processResponseGeneric(bogusAuthPromise);
             responseBody = '{ "unicorn": "rainbows" }';
         });
@@ -152,7 +150,7 @@ describe('utils', function() {
 
             expect(resolvedJson).to.eql(undefined);
             expect(rejectMessage).to.be('Something went wrong');
-        })
+        });
 
     });
 

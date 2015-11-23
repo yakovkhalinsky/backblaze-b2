@@ -5,16 +5,11 @@ var request = require('../../../lib/request');
 describe('request', function() {
 
     describe('setup', function() {
-        var requestOptions;
-        var requestCallback;
         var bogusRequestModule;
         var options;
 
         beforeEach(function() {
-            requestOptions = undefined;
-            requestCallback = undefined;
             bogusRequestModule = function(options, cb) {
-                requestOptions = options;
                 cb(false, false, JSON.stringify(options));
             };
             options = { unicorn: 'rainbows' };
@@ -25,7 +20,7 @@ describe('request', function() {
             request.sendRequest(options).then(function(response){
                 expect(response).to.eql(options);
                 done();
-            })
+            });
         });
     });
 

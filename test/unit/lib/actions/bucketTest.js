@@ -91,7 +91,7 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_delete_bucket',
-                    body: "{\"accountId\":\"98765\",\"bucketId\":\"1234abcd\"}",
+                    body: '{"accountId":"98765","bucketId":"1234abcd"}',
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -148,7 +148,7 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_list_buckets',
-                    body: "{\"accountId\":\"98765\"}",
+                    body: '{"accountId":"98765"}',
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -195,7 +195,7 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_update_bucket',
-                    body: "{\"accountId\":\"98765\",\"bucketId\":\"1234abcd\",\"bucketType\":\"allPublic\"}",
+                    body: '{"accountId":"98765","bucketId":"1234abcd","bucketType":"allPublic"}',
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -241,7 +241,7 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_get_upload_url',
-                    body: "{\"bucketId\":\"1234abcd\"}",
+                    body: '{"bucketId":"1234abcd"}',
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });

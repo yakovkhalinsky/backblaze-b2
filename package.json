@@ -4,7 +4,11 @@
   "description": "Node.js Library for the Backblaze B2 Storage Service",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"test/**/*Test.js\""
+    "test": "npm run lint-all && npm run test-unit",
+    "test-unit": "mocha \"test/**/*Test.js\"",
+    "lint-lib": "eslint \"lib/**/*.js\"",
+    "lint-test": "eslint \"test/**/*.js\" --global describe,it,beforeEach",
+    "lint-all": "npm run lint-lib && npm run lint-test"
   },
   "keywords": [
     "backblaze",
@@ -25,10 +29,12 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^1.10.1",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.4"
   },
   "dependencies": {
+    "node-sha1": "^1.0.1",
     "q": "^1.4.1",
     "request": "^2.67.0"
   }

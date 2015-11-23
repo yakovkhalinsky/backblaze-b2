@@ -70,7 +70,7 @@ describe('actions/auth', function() {
             it('Should reject promise is error is received', function() {
                 expect(isRejected).to.be(true);
                 expect(rejectedMessage).to.be(errorMessage);
-            })
+            });
         });
     });
 
