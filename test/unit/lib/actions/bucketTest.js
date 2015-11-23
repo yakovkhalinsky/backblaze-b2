@@ -159,7 +159,54 @@ describe('actions/bucket', function() {
             beforeEach(function(done) {
                 errorMessage = 'Something went wrong';
 
-                bucket.delete(b2).then(null, function(error) {
+                bucket.list(b2).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
+    describe('update', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = {
+                    accountId: '1234abcd',
+                    bucketId: '1234abcd',
+                    bucketName: 'bucket-foo',
+                    bucketType: 'allPublic'
+                };
+
+                bucket.update(b2, '1234abcd', bucket.TYPES.ALL_PUBLIC).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v1/b2_update_bucket',
+                    body: "{\"accountId\":\"98765\",\"bucketId\":\"1234abcd\",\"bucketType\":\"allPublic\"}",
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                bucket.update(b2, '1234abcd', bucket.TYPES.ALL_PUBLIC).then(null, function(error) {
                     actualResponse = error;
                     done();
                 });
