@@ -43,3 +43,40 @@ Once all API features are implemented, version will be updated to 1.0.x
     
     // get upload url
     b2.getUploadUrl(bucketId);  // returns promise
+    
+    // upload file
+    b2.uploadFile({
+        uploadUrl: 'uploadUrl',
+        uploadAuthToken: 'uploadAuthToken',
+        filename: 'filename',
+        data: 'data'
+    });  // returns promise
+        
+    // list file names
+    b2.listFileNames({
+        bucketId: 'bucketId',
+        startFileName: 'startFileName',
+        maxFileCount: 100
+    });  // returns promise
+            
+    // list file versions
+    b2.listFileVersions({
+        bucketId: 'bucketId',
+        startFileName: 'startFileName',
+        maxFileCount: 100
+    });  // returns promise
+            
+    // hide file
+    b2.hideFile({
+        bucketId: 'bucketId',
+        fileName: 'fileName',
+    });  // returns promise
+                
+    // get file info
+    b2.getFileInfo(fileId);  // returns promise
+
+    // download file by name
+    b2.downloadFileByName({
+        bucketName: 'bucketName',
+        fileName: 'fileName'
+    });  // returns promise

@@ -1,4 +1,18 @@
-### v0.9.2 (November 21, 2015) - The bucket list release
+### v0.9.3 (December 3, 2015) - The get on the file escalator release
+
+Features
+- Upload a file
+- List file names
+- List file versions
+- Hide file
+- Get file info
+- Download file by name
+- Now with ESLinting
+
+Todo:
+- Add tests
+
+### v0.9.2 (November 23, 2015) - The bucket list release
 
 Features
 - List buckets
