@@ -1,3 +1,10 @@
+### v0.9.4 (December 3, 2015) - The all the things API release
+
+Features
+- Download file by fileId
+- Delete file version
+
+
 ### v0.9.3 (December 3, 2015) - The get on the file escalator release
 
 Features

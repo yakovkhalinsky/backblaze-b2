@@ -80,3 +80,13 @@ Once all API features are implemented, version will be updated to 1.0.x
         bucketName: 'bucketName',
         fileName: 'fileName'
     });  // returns promise
+                
+    // download file by fileId
+    b2.downloadFileById(fileId);  // returns promise
+    
+    // delete file version
+    b2.deleteFileVersion({
+        fileId: 'fileId',
+        fileName: 'fileName'
+    });  // returns promise
+    

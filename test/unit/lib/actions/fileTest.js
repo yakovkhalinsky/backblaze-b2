@@ -358,4 +358,119 @@ describe('actions/file', function() {
 
     });
 
+    describe('downloadFileById', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = {
+                    headers: {
+                        'x-bz-file-id': 'fileIdAbcd1234',
+                        'x-bz-file-name': 'unicorns-download.png',
+                        'x-bz-content-sha1': 'file_hash'
+                    },
+                    statusCode: 200
+                };
+
+                bogusRequestModule = function(options, cb) {
+                    requestOptions = options;
+                    cb(errorMessage, response, 'file contents');
+                };
+
+                request.setup(bogusRequestModule);
+
+                file.downloadFileById(b2, 'abcd1234').then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://download/b2api/v1/b2_download_file_by_id',
+                    qs: {
+                        fileId: 'abcd1234'
+                    },
+                    headers: {
+                        Authorization: 'unicorns and rainbows'
+                    }
+                });
+                expect(actualResponse).to.eql({
+                    data: 'file contents',
+                    fileId: 'fileIdAbcd1234',
+                    filename: 'unicorns-download.png',
+                    sha1: 'file_hash'
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                file.downloadFileById(b2, '1234abcd').then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
+    describe('deleteFileVersion', function() {
+
+        beforeEach(function() {
+            options = {
+                fileId: 'abcd1234',
+                fileName: 'foo.txt'
+            };
+        });
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = { foo: '1234' };
+
+                file.deleteFileVersion(b2, options).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://foo/b2api/v1/b2_delete_file_version',
+                    method: 'POST',
+                    headers: {
+                        Authorization: 'unicorns and rainbows'
+                    },
+                    body: '{"fileId":"abcd1234","fileName":"foo.txt"}'
+                });
+                expect(actualResponse).to.eql(response);
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                file.deleteFileVersion(b2, options).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
 });
