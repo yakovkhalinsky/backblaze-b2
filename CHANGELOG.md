@@ -9,8 +9,6 @@ Features
 - Download file by name
 - Now with ESLinting
 
-Todo:
-- Add tests
 
 ### v0.9.2 (November 23, 2015) - The bucket list release
 

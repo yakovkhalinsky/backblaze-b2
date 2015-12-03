@@ -154,4 +154,48 @@ describe('utils', function() {
 
     });
 
+    describe('getProcessFileSuccess', function() {
+        var bogusPromise;
+        var resolvedJson;
+        var rejectMessage;
+        var fn;
+        var responseBody;
+
+        beforeEach(function() {
+            resolvedJson = undefined;
+            rejectMessage = undefined;
+            bogusPromise = {
+                resolve: function(json) {
+                    resolvedJson = json;
+                },
+                reject: function(message) {
+                    rejectMessage = message;
+                }
+            };
+            fn = utils.getProcessFileSuccess(bogusPromise, function() { return { foo: 'bar' }; });
+            responseBody = '{ "unicorn": "rainbows" }';
+        });
+
+        it('Should correctly resolve with parsed JSON of response body', function() {
+            fn(false, { statusCode: 200 }, 'file contents');
+
+            expect(resolvedJson).to.eql({ foo: 'bar' });
+            expect(rejectMessage).to.be(undefined);
+        });
+
+        it('Should correctly reject with non 200 status code', function() {
+            fn(null, { statusCode: 404, statusMessage: 'Not Found' }, responseBody);
+
+            expect(resolvedJson).to.eql(undefined);
+            expect(rejectMessage).to.be('Not Found');
+        });
+
+        it('Should correctly reject', function() {
+            fn('Something went wrong', false, responseBody);
+
+            expect(resolvedJson).to.eql(undefined);
+            expect(rejectMessage).to.be('Something went wrong');
+        });
+    });
+
 });
