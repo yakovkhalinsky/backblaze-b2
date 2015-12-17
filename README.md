@@ -13,6 +13,21 @@ This library uses promises, so all actions on a `B2` instance return a promise i
 
 All B2 API's have been implemented. See below for usage.
 
+Also see the [CHANGELOG](https://github.com/yakovkhalinsky/backblaze-b2/blob/master/CHANGELOG.md) for a history of updates.
+
+
+### Contributing and Suggestions for Changes and Fixes
+
+Contributions and questions are welcome. If you are looking for something to help with, please have a look at the 
+[ISSUES](https://github.com/yakovkhalinsky/backblaze-b2/issues) or add an issue if there is something you would like to see or fix.
+
+Make sure you use the `.editorconfig` in your IDE/editor when writing code.
+
+If you are adding code, take a bit of time to add unit tests to `/test/unit`. Make sure the test is named `fooTest.js` and 
+is located in a similar folder to the node module that is being tested.
+
+Always run `npm test` before you commit.
+
 
 ### Usage
 
@@ -47,7 +62,7 @@ All B2 API's have been implemented. See below for usage.
         uploadUrl: 'uploadUrl',
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
-        data: 'data'
+        data: 'data' // this is expecting a Buffer not an encoded string
     });  // returns promise
         
     // list file names

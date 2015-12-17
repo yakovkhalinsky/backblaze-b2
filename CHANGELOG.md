@@ -1,3 +1,12 @@
+### v0.9.5 (December 18, 2015) - The string encoding release
+
+Features
+- Ensure file names are properly encoded [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/4)
+
+Thanks for question and contributions
+- [Tennyson Holloway](https://github.com/tennysonholloway) for PR 4
+
+
 ### v0.9.4 (December 3, 2015) - The all the things API release
 
 Features
