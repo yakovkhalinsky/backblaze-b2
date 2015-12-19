@@ -198,7 +198,7 @@ describe('actions/file', function() {
         beforeEach(function() {
             options = {
                 bucketId: '123abc',
-                fileName: 'unicorns.png'
+                fileName: 'unicorns-and_rainbows!@#$%^&.png'
             };
         });
 
@@ -213,7 +213,7 @@ describe('actions/file', function() {
                 });
             });
 
-            it('should set correct options and resolve with good response', function() {
+            it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_hide_file',
                     method: 'POST',
@@ -221,7 +221,7 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"bucketId":"123abc","fileName":"unicorns.png"}'
+                    body: '{"bucketId":"123abc","fileName":"unicorns-and_rainbows!%40%23%24%25%5E%26.png"}'
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -295,7 +295,7 @@ describe('actions/file', function() {
         beforeEach(function() {
             options = {
                 bucketName: 'unicornBox',
-                fileName: 'unicorns.png'
+                fileName: 'unicorns-and_rainbows!@#$%^&.png'
             };
         });
 
@@ -324,9 +324,9 @@ describe('actions/file', function() {
                 });
             });
 
-            it('should set correct options and resolve with good response', function() {
+            it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://download/file/unicornBox/unicorns.png',
+                    url: 'https://download/file/unicornBox/unicorns-and_rainbows!%40%23%24%25%5E%26.png',
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     }
@@ -427,7 +427,7 @@ describe('actions/file', function() {
         beforeEach(function() {
             options = {
                 fileId: 'abcd1234',
-                fileName: 'foo.txt'
+                fileName: 'unicorns-and_rainbows!@#$%^&.png'
             };
         });
 
@@ -442,14 +442,14 @@ describe('actions/file', function() {
                 });
             });
 
-            it('should set correct options and resolve with good response', function() {
+            it('should set correct options and resolve with good response  (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_delete_file_version',
                     method: 'POST',
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"fileId":"abcd1234","fileName":"foo.txt"}'
+                    body: '{"fileId":"abcd1234","fileName":"unicorns-and_rainbows!%40%23%24%25%5E%26.png"}'
                 });
                 expect(actualResponse).to.eql(response);
             });
