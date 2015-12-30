@@ -62,7 +62,11 @@ Always run `npm test` before you commit.
         uploadUrl: 'uploadUrl',
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
-        data: 'data' // this is expecting a Buffer not an encoded string
+        data: 'data' // this is expecting a Buffer not an encoded string,
+        info: { // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
+            key1: value
+            key2: value
+        }
     });  // returns promise
         
     // list file names

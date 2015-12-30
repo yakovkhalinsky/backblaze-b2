@@ -84,6 +84,80 @@ describe('actions/file', function() {
             });
         });
 
+        describe('with info headers', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content',
+                    info: {
+                        foo:  'bar',
+                        unicorns: 'rainbows',
+                        'unicorns-and_rainbows!@#$%^&': 'header key with funky characters'
+                    }
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly add x-bz-info headers', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://uploadUrl',
+                    method: 'POST',
+                    headers:
+                    {
+                        Authorization: 'uploadauthtoken',
+                        'Content-Type': 'b2/x-auto',
+                        'X-Bz-File-Name': 'foo.txt',
+                        'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22',
+                        'X-Bz-Info-foo': 'bar',
+                        'X-Bz-Info-unicorns': 'rainbows',
+                        'X-Bz-Info-unicorns-and_rainbows!%40%23%24%25%5E%26': 'header key with funky characters'
+                    },
+                    body: 'some text file content'
+                });
+            });
+
+        });
+
+        describe('with more than maximum number of allowed info headers', function() {
+
+            beforeEach(function() {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content',
+                    info: {
+                        a: 'foo',
+                        b: 'foo',
+                        c: 'foo',
+                        d: 'foo',
+                        e: 'foo',
+                        f: 'foo',
+                        g: 'foo',
+                        h: 'foo',
+                        i: 'foo',
+                        j: 'foo',
+                        k: 'foo'
+                    }
+                };
+            });
+
+            it('should throw an error', function() {
+                try {
+                    file.uploadFile(b2, options);
+                } catch (e) {
+                    expect(e.message).to.be('Too many info headers: maximum of 10 allowed');
+                }
+            });
+
+        });
+
     });
 
 
