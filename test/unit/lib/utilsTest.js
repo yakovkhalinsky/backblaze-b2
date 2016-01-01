@@ -4,6 +4,14 @@ var utils = require('../../../lib/utils');
 
 describe('utils', function() {
 
+    var err;
+
+    beforeEach(function() {
+        err = {
+            message: ''
+        };
+    });
+
     describe('getAuthHeaderObject', function() {
         it('Should get header object with Base64 encoded Authorization header', function() {
             var accountId = 'unicorns';
@@ -18,8 +26,9 @@ describe('utils', function() {
             try {
                 utils.getAuthHeaderObject(accountId, applicationKey);
             } catch (e) {
-                expect(e.message).to.be('Invalid accountId');
+                err = e;
             }
+            expect(err.message).to.be('Invalid accountId');
         });
 
         it('Should throw error given invalid applicationKey', function() {
@@ -28,8 +37,9 @@ describe('utils', function() {
             try {
                 utils.getAuthHeaderObject(accountId, applicationKey);
             } catch (e) {
-                expect(e.message).to.be('Invalid applicationKey');
+                err = e;
             }
+            expect(err.message).to.be('Invalid applicationKey');
         });
     });
 
@@ -47,8 +57,9 @@ describe('utils', function() {
             try {
                 utils.getAuthHeaderObjectWithToken(b2);
             } catch (e) {
-                expect(e.message).to.be('Invalid B2 instance');
+                err = e;
             }
+            expect(err.message).to.be('Invalid B2 instance');
         });
 
         it('Should throw error given b2 object has no valid authorizationToken', function() {
@@ -56,8 +67,9 @@ describe('utils', function() {
             try {
                 utils.getAuthHeaderObjectWithToken(b2);
             } catch (e) {
-                expect(e.message).to.be('Invalid authorizationToken');
+                err = e;
             }
+            expect(err.message).to.be('Invalid authorizationToken');
         });
     });
 

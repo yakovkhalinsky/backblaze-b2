@@ -94,8 +94,7 @@ describe('actions/file', function() {
                     data: 'some text file content',
                     info: {
                         foo:  'bar',
-                        unicorns: 'rainbows',
-                        'unicorns-and_rainbows!@#$%^&': 'header key with funky characters'
+                        unicorns: 'rainbows'
                     }
                 };
 
@@ -115,45 +114,10 @@ describe('actions/file', function() {
                         'X-Bz-File-Name': 'foo.txt',
                         'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22',
                         'X-Bz-Info-foo': 'bar',
-                        'X-Bz-Info-unicorns': 'rainbows',
-                        'X-Bz-Info-unicorns-and_rainbows!%40%23%24%25%5E%26': 'header key with funky characters'
+                        'X-Bz-Info-unicorns': 'rainbows'
                     },
                     body: 'some text file content'
                 });
-            });
-
-        });
-
-        describe('with more than maximum number of allowed info headers', function() {
-
-            beforeEach(function() {
-                options = {
-                    uploadUrl: 'https://uploadUrl',
-                    uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
-                    data: 'some text file content',
-                    info: {
-                        a: 'foo',
-                        b: 'foo',
-                        c: 'foo',
-                        d: 'foo',
-                        e: 'foo',
-                        f: 'foo',
-                        g: 'foo',
-                        h: 'foo',
-                        i: 'foo',
-                        j: 'foo',
-                        k: 'foo'
-                    }
-                };
-            });
-
-            it('should throw an error', function() {
-                try {
-                    file.uploadFile(b2, options);
-                } catch (e) {
-                    expect(e.message).to.be('Too many info headers: maximum of 10 allowed');
-                }
             });
 
         });
