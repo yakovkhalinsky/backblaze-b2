@@ -84,6 +84,44 @@ describe('actions/file', function() {
             });
         });
 
+        describe('with info headers', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content',
+                    info: {
+                        foo:  'bar',
+                        unicorns: 'rainbows'
+                    }
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly add x-bz-info headers', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://uploadUrl',
+                    method: 'POST',
+                    headers:
+                    {
+                        Authorization: 'uploadauthtoken',
+                        'Content-Type': 'b2/x-auto',
+                        'X-Bz-File-Name': 'foo.txt',
+                        'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22',
+                        'X-Bz-Info-foo': 'bar',
+                        'X-Bz-Info-unicorns': 'rainbows'
+                    },
+                    body: 'some text file content'
+                });
+            });
+
+        });
+
     });
 
 

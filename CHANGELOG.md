@@ -1,3 +1,9 @@
+### v0.9.6 (December 18, 2015) - The information release
+
+Features
+- Add support for adding X-Bz-Info-* headers when uploading a file [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/6)
+
+
 ### v0.9.5 (December 18, 2015) - The string encoding release
 
 Features
