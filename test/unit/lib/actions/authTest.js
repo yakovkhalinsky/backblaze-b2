@@ -7,9 +7,15 @@ describe('actions/auth', function() {
     var requestOptions;
     var bogusRequestModule;
     var authResponse;
+    var actualAuthResponse;
     var errorMessage;
 
     beforeEach(function() {
+        requestOptions = null;
+        authResponse = null;
+        actualAuthResponse = null;
+        errorMessage = null;
+
         bogusRequestModule = function(options, cb) {
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(authResponse));
@@ -37,10 +43,18 @@ describe('actions/auth', function() {
                     downloadUrl: 'https://bar'
                 };
 
-                auth.authorize(b2).then(done);
+                auth.authorize(b2).then(function(response) {
+                    actualAuthResponse = response;
+                    done();
+                });
             });
 
             it('Should set correct auth header in request options', function() {
+                expect(actualAuthResponse).to.eql({
+                    authorizationToken: 'foo',
+                    apiUrl: 'https://foo',
+                    downloadUrl: 'https://bar'
+                });
                 expect(requestOptions.headers).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
             });
 

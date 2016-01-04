@@ -85,18 +85,18 @@ describe('utils', function() {
 
     describe('getProcessAuthSuccess', function() {
         var bogusAuthPromise;
-        var isResolved;
+        var resolvedWith;
         var rejectMessage;
         var b2;
         var fn;
         var responseBody;
 
         beforeEach(function() {
-            isResolved = false;
+            resolvedWith= undefined;
             rejectMessage = undefined;
             bogusAuthPromise = {
-                resolve: function() {
-                    isResolved = true;
+                resolve: function(response) {
+                    resolvedWith = response;
                 },
                 reject: function(message) {
                     rejectMessage = message;
@@ -111,7 +111,11 @@ describe('utils', function() {
             fn(false, false, responseBody);
 
             expect(rejectMessage).to.be(undefined);
-            expect(isResolved).to.be(true);
+            expect(resolvedWith).to.eql({
+                authorizationToken: 'unicorns',
+                apiUrl: 'https://foo',
+                downloadUrl: 'https://bar'
+            });
             expect(b2.authorizationToken).to.be('unicorns');
             expect(b2.apiUrl).to.be('https://foo');
             expect(b2.downloadUrl).to.be('https://bar');
@@ -121,7 +125,7 @@ describe('utils', function() {
             fn('Something went wrong', false, responseBody);
 
             expect(rejectMessage).to.be('Something went wrong');
-            expect(isResolved).to.be(false);
+            expect(resolvedWith).to.be(undefined);
             expect(b2.authorizationToken).to.be(undefined);
             expect(b2.apiUrl).to.be(undefined);
             expect(b2.downloadUrl).to.be(undefined);
