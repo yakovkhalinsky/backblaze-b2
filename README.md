@@ -33,6 +33,9 @@ Always run `npm test` before you commit.
 
     var B2 = require('backblaze-b2');
     
+    // All functions on the b2 instance return the response from the B2 API in the success callback
+    // i.e. b2.foo(...).then(function(b2JsonResponse) {})
+    
     // create b2 object instance
     var b2 = new B2({
         accountId: 'accountId',

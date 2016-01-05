@@ -1,3 +1,9 @@
+### v0.9.7 (January 5, 2016) - The good response release
+
+Features
+- Updated all instance functions to return API response in success callback [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/8)
+
+
 ### v0.9.6 (December 18, 2015) - The information release
 
 Features
