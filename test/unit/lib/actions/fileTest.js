@@ -372,8 +372,8 @@ describe('actions/file', function() {
                 expect(actualResponse).to.eql({
                     data: 'file contents',
                     fileId: 'fileIdAbcd1234',
-                    filename: 'unicorns-download.png',
-                    sha1: 'file_hash'
+                    fileName: 'unicorns-download.png',
+                    contentSha1: 'file_hash'
                 });
             });
         });
@@ -436,8 +436,8 @@ describe('actions/file', function() {
                 expect(actualResponse).to.eql({
                     data: 'file contents',
                     fileId: 'fileIdAbcd1234',
-                    filename: 'unicorns-download.png',
-                    sha1: 'file_hash'
+                    fileName: 'unicorns-download.png',
+                    contentSha1: 'file_hash'
                 });
             });
         });
