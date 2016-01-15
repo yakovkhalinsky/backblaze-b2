@@ -214,4 +214,14 @@ describe('utils', function() {
         });
     });
 
+    describe('getUrlEncodedFileName', function() {
+        it('Should correctly encode a fileName with no paths', function() {
+            expect(utils.getUrlEncodedFileName('unicorns and rainbows !@#$%^&')).to.equal('unicorns%20and%20rainbows%20!%40%23%24%25%5E%26');
+        });
+
+        it('Should correctly encode a fileName with paths', function() {
+            expect(utils.getUrlEncodedFileName('foo/bar/unicorns and rainbows !@#$%^&')).to.equal('foo/bar/unicorns%20and%20rainbows%20!%40%23%24%25%5E%26');
+        });
+    });
+
 });
