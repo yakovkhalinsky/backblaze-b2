@@ -1,3 +1,12 @@
+### v0.9.8 (January 5, 2016) - The good response release
+
+Features
+- Updated all file functions to properly encode a fileName with a path [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/10)
+
+Thanks for reporting issues for this release
+- [mmccallum](https://github.com/mmccallum)
+
+
 ### v0.9.7 (January 5, 2016) - The good response release
 
 Features
