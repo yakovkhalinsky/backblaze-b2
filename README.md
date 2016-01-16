@@ -91,7 +91,7 @@ Always run `npm test` before you commit.
     // hide file
     b2.hideFile({
         bucketId: 'bucketId',
-        fileName: 'fileName',
+        fileName: 'fileName'
     });  // returns promise
                 
     // get file info
