@@ -365,6 +365,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://download/file/unicornBox/unicorns-and_rainbows!%40%23%24%25%5E%26.png',
+                    encoding: null,
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     }
