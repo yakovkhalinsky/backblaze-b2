@@ -1,3 +1,12 @@
+### v0.9.9 (January 5, 2016) - The Buffer release
+
+Features
+- Fix downloading of binary files [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/11)
+
+Thanks to the contributors for this release
+- [legacy3](https://github.com/legacy3)
+
+
 ### v0.9.8 (January 5, 2016) - The good response release
 
 Features
