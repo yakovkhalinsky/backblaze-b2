@@ -23,7 +23,12 @@ Contributions and questions are welcome. If you are looking for something to hel
 
 Make sure you use the `.editorconfig` in your IDE/editor when writing code.
 
-If you are adding code, take a bit of time to add unit tests to `/test/unit`. Make sure the test is named `fooTest.js` and 
+Pull Requests should include:
+
+*   Updated example in README.md
+*   Update exiting tests, or add new tests to cover code changes
+ 
+If you are adding tests, add these to `/test/unit`. Make sure the test is named `fooTest.js` and 
 is located in a similar folder to the node module that is being tested.
 
 Always run `npm test` before you commit.
@@ -65,6 +70,7 @@ Always run `npm test` before you commit.
         uploadUrl: 'uploadUrl',
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
+        mime: '', // optonal mime type, will default to 'b2/x-auto' if not provided
         data: 'data' // this is expecting a Buffer not an encoded string,
         info: { 
             // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set

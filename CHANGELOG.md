@@ -1,3 +1,12 @@
+### v0.9.10 (February 21, 2016) - The Mime release
+
+Features
+- Allow specifying mime type on upload [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/14)
+
+Thanks to the contributors for this release
+- [Martin Kolárik](https://github.com/MartinKolarik)
+
+
 ### v0.9.9 (January 5, 2016) - The Buffer release
 
 Features

@@ -122,6 +122,57 @@ describe('actions/file', function() {
 
         });
 
+        describe('with no mime type specified', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content',
+                    info: {
+                        foo:  'bar',
+                        unicorns: 'rainbows'
+                    }
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should default mime-type in headers', function() {
+                expect(requestOptions.headers['Content-Type']).to.equal('b2/x-auto');
+            });
+
+        });
+
+        describe('with mime type specified', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    mime: 'foo/type',
+                    data: 'some text file content',
+                    info: {
+                        foo:  'bar',
+                        unicorns: 'rainbows'
+                    }
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly mime-type in headers', function() {
+                expect(requestOptions.headers['Content-Type']).to.equal('foo/type');
+            });
+
+        });
+
     });
 
 
