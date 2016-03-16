@@ -483,7 +483,8 @@ describe('actions/file', function() {
                     },
                     headers: {
                         Authorization: 'unicorns and rainbows'
-                    }
+                    },
+                    encoding: null
                 });
                 expect(actualResponse).to.eql({
                     data: 'file contents',
