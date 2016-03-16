@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^1.10.1",
+    "eslint": "^2.4.0",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.4"
   },
