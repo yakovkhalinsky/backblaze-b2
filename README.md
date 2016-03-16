@@ -11,7 +11,7 @@ This library uses promises, so all actions on a `B2` instance return a promise i
 
 ### Status of project
 
-All B2 API's have been implemented. See below for usage.
+All B2 API's have been implemented with the exception of the large file API. See below for usage.
 
 Also see the [CHANGELOG](https://github.com/yakovkhalinsky/backblaze-b2/blob/master/CHANGELOG.md) for a history of updates.
 

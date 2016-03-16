@@ -1,3 +1,12 @@
+### v0.9.11 (March 16, 2016) - The file encoding release
+
+Fixes
+- Fix setting encoding for downloadFileById [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/16) [issue](https://github.com/yakovkhalinsky/backblaze-b2/issues/15)
+
+Thanks to the issue reporter for this release
+- [GoNode5](https://github.com/GoNode5)
+
+
 ### v0.9.10 (February 21, 2016) - The Mime release
 
 Features
