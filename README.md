@@ -84,7 +84,9 @@ Always run `npm test` before you commit.
     b2.listFileNames({
         bucketId: 'bucketId',
         startFileName: 'startFileName',
-        maxFileCount: 100
+        maxFileCount: 100,
+        delimiter: '',
+        prefix: ''
     });  // returns promise
             
     // list file versions
