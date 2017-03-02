@@ -205,7 +205,7 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"bucketId":"123abc","startFileName":"unicorns.png","maxFileCount":200}'
+                    body: '{"bucketId":"123abc","startFileName":"unicorns.png","maxFileCount":200","prefix":"","delimiter":""}'
                 });
                 expect(actualResponse).to.eql(response);
             });
