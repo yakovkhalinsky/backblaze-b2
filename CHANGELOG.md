@@ -1,3 +1,14 @@
+### v0.9.12 (March 4, 2017) - The options release
+
+Fixes
+- Added prefix and delimiter support to file list API call [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/20)
+- Promise Progress Notifications
+[link](https://github.com/yakovkhalinsky/backblaze-b2/pull/21)
+
+Thanks to the contributors for this release
+- [crazyscience](https://github.com/crazyscience)
+
+
 ### v0.9.11 (March 16, 2016) - The file encoding release
 
 Fixes
@@ -97,4 +108,3 @@ Features
 - Bucket Creation
 - Bucket Deletion
 - Initial mocha test setup
-
