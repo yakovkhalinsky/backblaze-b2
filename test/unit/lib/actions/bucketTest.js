@@ -24,6 +24,11 @@ describe('actions/bucket', function() {
         bogusRequestModule = function(options, cb) {
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(response));
+            var  bogusRequestObject = function() {
+                // Fake event subscribe that supports method chaining
+                this.on = function() {return this;};
+            };
+            return new bogusRequestObject();
         };
 
         request.setup(bogusRequestModule);
