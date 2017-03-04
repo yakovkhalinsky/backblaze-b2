@@ -36,6 +36,7 @@
   "dependencies": {
     "node-sha1": "^1.0.1",
     "q": "^1.4.1",
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "request-progress": "^3.0.0"
   }
 }
