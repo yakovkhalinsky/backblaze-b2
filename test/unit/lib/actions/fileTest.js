@@ -26,6 +26,12 @@ describe('actions/file', function() {
         bogusRequestModule = function(options, cb) {
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(response));
+            // Well, we can't return undefined, now can we?
+            var  bogusRequestObject = function() {
+                // Fake event subscribe that supports method chaining
+                this.on = function() {return this;};
+            };
+            return new bogusRequestObject();
         };
 
         request.setup(bogusRequestModule);
@@ -403,6 +409,12 @@ describe('actions/file', function() {
                 bogusRequestModule = function(options, cb) {
                     requestOptions = options;
                     cb(errorMessage, response, 'file contents');
+                    // Well, we can't return undefined, now can we?
+                    var  bogusRequestObject = function() {
+                        // Fake event subscribe that supports method chaining
+                        this.on = function() {return this;};
+                    };
+                    return new bogusRequestObject();
                 };
 
                 request.setup(bogusRequestModule);
@@ -465,6 +477,12 @@ describe('actions/file', function() {
                 bogusRequestModule = function(options, cb) {
                     requestOptions = options;
                     cb(errorMessage, response, 'file contents');
+                    // Well, we can't return undefined, now can we?
+                    var  bogusRequestObject = function() {
+                        // Fake event subscribe that supports method chaining
+                        this.on = function() {return this;};
+                    };
+                    return new bogusRequestObject();
                 };
 
                 request.setup(bogusRequestModule);
