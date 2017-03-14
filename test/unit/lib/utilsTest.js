@@ -150,7 +150,7 @@ describe('utils', function() {
                     rejectMessage = message;
                 }
             };
-            fn = utils.processResponseGeneric(null, bogusAuthPromise);
+            fn = utils.processResponseGeneric(bogusAuthPromise);
             responseBody = '{ "unicorn": "rainbows" }';
         });
 
