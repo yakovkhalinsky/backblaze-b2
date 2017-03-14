@@ -82,7 +82,8 @@ For this update, we've switched the back end HTTP request library from `request`
             // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
             key1: value
             key2: value
-        }
+        },
+        onUploadProgress: function(event) || null // progress monitoring
     });  // returns promise
         
     // list file names
@@ -113,11 +114,15 @@ For this update, we've switched the back end HTTP request library from `request`
     // download file by name
     b2.downloadFileByName({
         bucketName: 'bucketName',
-        fileName: 'fileName'
+        fileName: 'fileName',
+        onDownloadProgress: function(event) || null // progress monitoring
     });  // returns promise
                 
     // download file by fileId
-    b2.downloadFileById(fileId);  // returns promise
+    b2.downloadFileById({
+      fileId: 'fileId',
+      onDownloadProgress: function(event) || null // progress monitoring
+    });  // returns promise
     
     // delete file version
     b2.deleteFileVersion({
