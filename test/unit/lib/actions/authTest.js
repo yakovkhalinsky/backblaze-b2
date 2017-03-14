@@ -1,4 +1,5 @@
 var expect = require('expect.js');
+var q = require('q');
 
 var request = require('../../../../lib/request');
 var auth = require('../../../../lib/actions/auth');
@@ -15,10 +16,13 @@ describe('actions/auth', function() {
         authResponse = null;
         actualAuthResponse = null;
         errorMessage = null;
+        var deferred = q.defer();
 
         bogusRequestModule = function(options, cb) {
             requestOptions = options;
-            cb(errorMessage, false, JSON.stringify(authResponse));
+            cb(errorMessage, false, JSON.stringify(authResponse), deferred);
+
+            return deferred.promise;
         };
 
         request.setup(bogusRequestModule);

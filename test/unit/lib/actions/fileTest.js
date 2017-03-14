@@ -1,4 +1,5 @@
 var expect = require('expect.js');
+var q = require('q');
 
 var request = require('../../../../lib/request');
 var file = require('../../../../lib/actions/file');
@@ -24,14 +25,10 @@ describe('actions/file', function() {
         };
 
         bogusRequestModule = function(options, cb) {
+            var deferred = q.defer();
             requestOptions = options;
-            cb(errorMessage, false, JSON.stringify(response));
-            // Well, we can't return undefined, now can we?
-            var  bogusRequestObject = function() {
-                // Fake event subscribe that supports method chaining
-                this.on = function() {return this;};
-            };
-            return new bogusRequestObject();
+            cb(errorMessage, false, JSON.stringify(response), deferred);
+            return deferred.promise;
         };
 
         request.setup(bogusRequestModule);
@@ -68,7 +65,8 @@ describe('actions/file', function() {
                         'Content-Type': 'b2/x-auto',
                         'X-Bz-File-Name': 'foo.txt',
                         'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22' },
-                    body: 'some text file content'
+                    data: 'some text file content',
+                    onUploadProgress: null
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -122,7 +120,8 @@ describe('actions/file', function() {
                         'X-Bz-Info-foo': 'bar',
                         'X-Bz-Info-unicorns': 'rainbows'
                     },
-                    body: 'some text file content'
+                    data: 'some text file content',
+                    onUploadProgress: null
                 });
             });
 
@@ -211,7 +210,13 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"bucketId":"123abc","startFileName":"unicorns.png","maxFileCount":200,"prefix":"","delimiter":null}'
+                    data: {
+                        bucketId: '123abc',
+                        startFileName: 'unicorns.png',
+                        maxFileCount: 200,
+                        prefix: '',
+                        delimiter: null
+                    }
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -264,7 +269,11 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"bucketId":"123abc","startFileName":"unicorns.png","maxFileCount":200}'
+                    data: {
+                        bucketId: '123abc',
+                        startFileName: 'unicorns.png',
+                        maxFileCount: 200
+                    }
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -316,7 +325,10 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"bucketId":"123abc","fileName":"unicorns-and_rainbows!%40%23%24%25%5E%26.png"}'
+                    data: {
+                        bucketId: '123abc',
+                        fileName: 'unicorns-and_rainbows!@#$%^&.png'
+                    }
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -361,7 +373,9 @@ describe('actions/file', function() {
                     {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"fileId":"abc123"}'
+                    data: {
+                        fileId: 'abc123'
+                    }
                 });
                 expect(actualResponse).to.eql(response);
             });
@@ -403,18 +417,19 @@ describe('actions/file', function() {
                         'x-bz-file-name': 'unicorns-download.png',
                         'x-bz-content-sha1': 'file_hash'
                     },
-                    statusCode: 200
+                    statusCode: 200,
+                    contentSha1: 'file_hash',
+                    data: 'file contents',
+                    fileId: 'fileIdAbcd1234',
+                    fileName: 'unicorns-download.png'
                 };
 
                 bogusRequestModule = function(options, cb) {
+                    var deferred = q.defer();
                     requestOptions = options;
-                    cb(errorMessage, response, 'file contents');
-                    // Well, we can't return undefined, now can we?
-                    var  bogusRequestObject = function() {
-                        // Fake event subscribe that supports method chaining
-                        this.on = function() {return this;};
-                    };
-                    return new bogusRequestObject();
+                    cb(errorMessage, response, 'file contents', deferred);
+
+                    return deferred.promise;
                 };
 
                 request.setup(bogusRequestModule);
@@ -431,14 +446,12 @@ describe('actions/file', function() {
                     encoding: null,
                     headers: {
                         Authorization: 'unicorns and rainbows'
-                    }
+                    },
+                    onDownloadProgress: null,
+                    responseType: null,
+                    transformResponse: null
                 });
-                expect(actualResponse).to.eql({
-                    data: 'file contents',
-                    fileId: 'fileIdAbcd1234',
-                    fileName: 'unicorns-download.png',
-                    contentSha1: 'file_hash'
-                });
+                expect(actualResponse).to.eql(response);
             });
         });
 
@@ -475,19 +488,16 @@ describe('actions/file', function() {
                 };
 
                 bogusRequestModule = function(options, cb) {
+                    var deferred = q.defer();
                     requestOptions = options;
-                    cb(errorMessage, response, 'file contents');
-                    // Well, we can't return undefined, now can we?
-                    var  bogusRequestObject = function() {
-                        // Fake event subscribe that supports method chaining
-                        this.on = function() {return this;};
-                    };
-                    return new bogusRequestObject();
+                    cb(errorMessage, response, 'file contents', deferred);
+
+                    return deferred.promise;
                 };
 
                 request.setup(bogusRequestModule);
 
-                file.downloadFileById(b2, 'abcd1234').then(function(response) {
+                file.downloadFileById(b2, {fileId: 'abcd1234'}).then(function(response) {
                     actualResponse = response;
                     done();
                 });
@@ -502,13 +512,18 @@ describe('actions/file', function() {
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
-                    encoding: null
+                    encoding: null,
+                    onDownloadProgress: null,
+                    responseType: null,
+                    transformResponse: null
                 });
                 expect(actualResponse).to.eql({
-                    data: 'file contents',
-                    fileId: 'fileIdAbcd1234',
-                    fileName: 'unicorns-download.png',
-                    contentSha1: 'file_hash'
+                    headers: {
+                        'x-bz-file-id': 'fileIdAbcd1234',
+                        'x-bz-file-name': 'unicorns-download.png',
+                        'x-bz-content-sha1': 'file_hash'
+                    },
+                    statusCode: 200
                 });
             });
         });
@@ -558,7 +573,10 @@ describe('actions/file', function() {
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
-                    body: '{"fileId":"abcd1234","fileName":"unicorns-and_rainbows!%40%23%24%25%5E%26.png"}'
+                    data: {
+                        fileId: 'abcd1234',
+                        fileName: 'unicorns-and_rainbows!@#$%^&.png'
+                    }
                 });
                 expect(actualResponse).to.eql(response);
             });

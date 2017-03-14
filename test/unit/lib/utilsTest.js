@@ -150,7 +150,7 @@ describe('utils', function() {
                     rejectMessage = message;
                 }
             };
-            fn = utils.processResponseGeneric(bogusAuthPromise);
+            fn = utils.processResponseGeneric(null, bogusAuthPromise);
             responseBody = '{ "unicorn": "rainbows" }';
         });
 
@@ -195,7 +195,7 @@ describe('utils', function() {
         it('Should correctly resolve with parsed JSON of response body', function() {
             fn(false, { statusCode: 200 }, 'file contents');
 
-            expect(resolvedJson).to.eql({ foo: 'bar' });
+            expect(resolvedJson).to.eql({ statusCode: 200 });
             expect(rejectMessage).to.be(undefined);
         });
 

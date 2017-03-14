@@ -1,4 +1,5 @@
 var expect = require('expect.js');
+var q = require('q');
 
 var request = require('../../../lib/request');
 
@@ -10,13 +11,10 @@ describe('request', function() {
 
         beforeEach(function() {
             bogusRequestModule = function(options, cb) {
-                cb(false, false, JSON.stringify(options));
-                // Well, we can't return undefined, now can we?
-                var  bogusRequestObject = function() {
-                    // Fake event subscribe that supports method chaining
-                    this.on = function() {return this;};
-                };
-                return new bogusRequestObject();
+                var deferred = q.defer();
+                cb(false, false, JSON.stringify(options), deferred);
+
+                return deferred.promise;
             };
             options = { unicorn: 'rainbows' };
             request.setup(bogusRequestModule);
