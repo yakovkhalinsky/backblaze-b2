@@ -153,7 +153,7 @@ For this update, we've switched the back end HTTP request library from `request`
 
     // cancel large file
     b2.cancelLargeFile({
-      fileId: args.fileId
+      fileId: 'fileId'
     }) // returns promise
 
 
