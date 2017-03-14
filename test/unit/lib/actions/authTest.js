@@ -6,26 +6,24 @@ var auth = require('../../../../lib/actions/auth');
 
 describe('actions/auth', function() {
     var requestOptions;
-    var bogusRequestModule;
+    var bogusAxiosModule;
     var authResponse;
     var actualAuthResponse;
     var errorMessage;
+    var deferred;
 
     beforeEach(function() {
         requestOptions = null;
         authResponse = null;
         actualAuthResponse = null;
         errorMessage = null;
-        var deferred = q.defer();
+        deferred = q.defer();
 
-        bogusRequestModule = function(options, cb) {
+        bogusAxiosModule = function(options) {
             requestOptions = options;
-            cb(errorMessage, false, JSON.stringify(authResponse), deferred);
-
             return deferred.promise;
         };
-
-        request.setup(bogusRequestModule);
+        request.setup(bogusAxiosModule);
     });
 
     describe('authorize', function() {
@@ -39,13 +37,18 @@ describe('actions/auth', function() {
         });
 
         describe('with valid response', function() {
-
             beforeEach(function(done) {
+
                 authResponse = {
-                    authorizationToken: 'foo',
-                    apiUrl: 'https://foo',
-                    downloadUrl: 'https://bar'
+                    data: {
+                        authorizationToken: 'foo',
+                        apiUrl: 'https://foo',
+                        downloadUrl: 'https://bar'
+                    }
                 };
+
+                // Resolve the promise that's set up above.
+                deferred.resolve(authResponse);
 
                 auth.authorize(b2).then(function(response) {
                     actualAuthResponse = response;
@@ -54,11 +57,7 @@ describe('actions/auth', function() {
             });
 
             it('Should set correct auth header in request options', function() {
-                expect(actualAuthResponse).to.eql({
-                    authorizationToken: 'foo',
-                    apiUrl: 'https://foo',
-                    downloadUrl: 'https://bar'
-                });
+                expect(actualAuthResponse).to.eql(authResponse);
                 expect(requestOptions.headers).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
             });
 
@@ -77,6 +76,9 @@ describe('actions/auth', function() {
                 errorMessage = 'Something went wrong';
                 isRejected = false;
                 rejectedMessage = null;
+
+                // Reject the promise that's set up above
+                deferred.reject(errorMessage);
 
                 auth.authorize(b2).then(null, function(error) {
                     isRejected = true;

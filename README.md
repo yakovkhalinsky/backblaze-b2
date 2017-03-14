@@ -57,7 +57,10 @@ For this update, we've switched the back end HTTP request library from `request`
     b2.authorize();  // returns promise
     
     // create bucket
-    b2.createBucket(bucketName, bucketType);  // returns promise
+    b2.createBucket(
+      bucketName, 
+      bucketType // one of `allPublic`, `allPrivate`
+    );  // returns promise
     
     // delete bucket
     b2.deleteBucket(bucketId);  // returns promise

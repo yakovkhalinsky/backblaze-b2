@@ -50,7 +50,9 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_create_bucket',
-                    qs: { accountId: '98765',
+                    method: 'POST',
+                    data: {
+                        accountId: '98765',
                         bucketName: 'foo',
                         bucketType: 'bar'
                     },

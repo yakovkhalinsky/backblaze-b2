@@ -505,10 +505,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://download/b2api/v1/b2_download_file_by_id',
-                    qs: {
-                        fileId: 'abcd1234'
-                    },
+                    url: 'https://download/b2api/v1/b2_download_file_by_id?fileId=abcd1234',
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
