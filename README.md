@@ -33,6 +33,12 @@ is located in a similar folder to the node module that is being tested.
 
 Always run `npm test` before you commit.
 
+### Upgrading from 0.9.x to 1.0.x
+
+For this update, we've switched the back end HTTP request library from `request` to `axios` as it has better Promise and progress support built in. However, there are a couple changes that will break your code and ruin your day. Here are the changes:
+*  The Promise resolution has a different data structure. Where previously, the request response data was the root object in the promise resolution (`res`), this data now resides in `res.data`.
+*  In v0.9.12, we added request progress reporting via the third parameter to `then()`. Because we are no longer using the same promise library, this functionality has been removed. However, progress reporting is still available by passing a callback function into the `b2.method()` that you're calling. See the documentation below for details.
+* In v0.9.x, `b2.downloadFileById()` accepted a `fileId` parameter as a String or Number. As of 1.0.0, the first parameter is now expected to be a plain Object of arguments.
 
 ### Usage
 
@@ -51,7 +57,10 @@ Always run `npm test` before you commit.
     b2.authorize();  // returns promise
     
     // create bucket
-    b2.createBucket(bucketName, bucketType);  // returns promise
+    b2.createBucket(
+      bucketName, 
+      bucketType // one of `allPublic`, `allPrivate`
+    );  // returns promise
     
     // delete bucket
     b2.deleteBucket(bucketId);  // returns promise
@@ -77,7 +86,8 @@ Always run `npm test` before you commit.
             // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
             key1: value
             key2: value
-        }
+        },
+        onUploadProgress: function(event) || null // progress monitoring
     });  // returns promise
         
     // list file names
@@ -108,11 +118,15 @@ Always run `npm test` before you commit.
     // download file by name
     b2.downloadFileByName({
         bucketName: 'bucketName',
-        fileName: 'fileName'
+        fileName: 'fileName',
+        onDownloadProgress: function(event) || null // progress monitoring
     });  // returns promise
                 
     // download file by fileId
-    b2.downloadFileById(fileId);  // returns promise
+    b2.downloadFileById({
+      fileId: 'fileId',
+      onDownloadProgress: function(event) || null // progress monitoring
+    });  // returns promise
     
     // delete file version
     b2.deleteFileVersion({
@@ -120,3 +134,39 @@ Always run `npm test` before you commit.
         fileName: 'fileName'
     });  // returns promise
     
+    // start large file
+    b2.startLargeFile({
+      bucketId: 'bucketId',
+      fileName: 'fileName'
+    }) // returns promise
+
+    // get upload part url
+    b2.getUploadPartUrl({
+      fileId: 'fileId'
+    }) // returns promise
+
+    // get upload part
+    b2.uploadPart({
+      partNumber: 'partNumber', // A number from 1 to 10000
+      uploadUrl: 'uploadUrl',
+      uploadAuthToken: 'uploadAuthToken', // comes from getUploadPartUrl();
+      data: Buffer // this is expecting a Buffer not an encoded string,
+      onUploadProgress: function(event) || null // progress monitoring
+    }) // returns promise
+
+    // finish large file
+    b2.finishLargeFile({
+      fileId: 'fileId',
+      partSha1Array: [partSha1Array] // array of sha1 for each part
+    }) // returns promise
+
+    // cancel large file
+    b2.cancelLargeFile({
+      fileId: 'fileId'
+    }) // returns promise
+
+
+### Authors
+* Yakov Khalinsky (@yakovkhalinsky)
+* Ivan Kalinin (@IvanKalinin) at Isolary
+* Brandon Patton (@crazyscience) at Isolary

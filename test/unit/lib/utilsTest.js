@@ -83,55 +83,6 @@ describe('utils', function() {
         });
     });
 
-    describe('getProcessAuthSuccess', function() {
-        var bogusAuthPromise;
-        var resolvedWith;
-        var rejectMessage;
-        var b2;
-        var fn;
-        var responseBody;
-
-        beforeEach(function() {
-            resolvedWith= undefined;
-            rejectMessage = undefined;
-            bogusAuthPromise = {
-                resolve: function(response) {
-                    resolvedWith = response;
-                },
-                reject: function(message) {
-                    rejectMessage = message;
-                }
-            };
-            b2 = {};
-            fn = utils.getProcessAuthSuccess(b2, bogusAuthPromise);
-            responseBody = '{ "authorizationToken": "unicorns", "apiUrl": "https://foo", "downloadUrl": "https://bar" }';
-        });
-
-        it('Should correctly resolve promise and set properties on b2 instance object', function() {
-            fn(false, false, responseBody);
-
-            expect(rejectMessage).to.be(undefined);
-            expect(resolvedWith).to.eql({
-                authorizationToken: 'unicorns',
-                apiUrl: 'https://foo',
-                downloadUrl: 'https://bar'
-            });
-            expect(b2.authorizationToken).to.be('unicorns');
-            expect(b2.apiUrl).to.be('https://foo');
-            expect(b2.downloadUrl).to.be('https://bar');
-        });
-
-        it('Should correctly reject promise when error is received in function call', function() {
-            fn('Something went wrong', false, responseBody);
-
-            expect(rejectMessage).to.be('Something went wrong');
-            expect(resolvedWith).to.be(undefined);
-            expect(b2.authorizationToken).to.be(undefined);
-            expect(b2.apiUrl).to.be(undefined);
-            expect(b2.downloadUrl).to.be(undefined);
-        });
-    });
-
     describe('processResponseGeneric', function() {
         var bogusAuthPromise;
         var resolvedJson;
@@ -195,7 +146,7 @@ describe('utils', function() {
         it('Should correctly resolve with parsed JSON of response body', function() {
             fn(false, { statusCode: 200 }, 'file contents');
 
-            expect(resolvedJson).to.eql({ foo: 'bar' });
+            expect(resolvedJson).to.eql({ statusCode: 200 });
             expect(rejectMessage).to.be(undefined);
         });
 

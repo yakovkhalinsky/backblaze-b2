@@ -1,6 +1,6 @@
 {
   "name": "backblaze-b2",
-  "version": "0.9.12",
+  "version": "1.0.0",
   "description": "Node.js Library for the Backblaze B2 Storage Service",
   "main": "index.js",
   "scripts": {
@@ -34,9 +34,8 @@
     "mocha": "^2.3.4"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "node-sha1": "^1.0.1",
-    "q": "^1.4.1",
-    "request": "^2.67.0",
-    "request-progress": "^3.0.0"
+    "q": "^1.4.1"
   }
 }

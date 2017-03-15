@@ -1,4 +1,5 @@
 var expect = require('expect.js');
+var q = require('q');
 
 var request = require('../../../../lib/request');
 var bucket = require('../../../../lib/actions/bucket');
@@ -22,13 +23,11 @@ describe('actions/bucket', function() {
         };
 
         bogusRequestModule = function(options, cb) {
+            var deferred = q.defer();
             requestOptions = options;
-            cb(errorMessage, false, JSON.stringify(response));
-            var  bogusRequestObject = function() {
-                // Fake event subscribe that supports method chaining
-                this.on = function() {return this;};
-            };
-            return new bogusRequestObject();
+            cb(errorMessage, false, JSON.stringify(response), deferred);
+
+            return deferred.promise;
         };
 
         request.setup(bogusRequestModule);
@@ -51,7 +50,9 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_create_bucket',
-                    qs: { accountId: '98765',
+                    method: 'POST',
+                    data: {
+                        accountId: '98765',
                         bucketName: 'foo',
                         bucketType: 'bar'
                     },
@@ -96,7 +97,10 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_delete_bucket',
-                    body: '{"accountId":"98765","bucketId":"1234abcd"}',
+                    data: {
+                        accountId: '98765',
+                        bucketId: '1234abcd'
+                    },
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -153,7 +157,9 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_list_buckets',
-                    body: '{"accountId":"98765"}',
+                    data: {
+                        accountId: '98765'
+                    },
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -200,7 +206,11 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_update_bucket',
-                    body: '{"accountId":"98765","bucketId":"1234abcd","bucketType":"allPublic"}',
+                    data: {
+                        accountId: '98765',
+                        bucketId: '1234abcd',
+                        bucketType: 'allPublic'
+                    },
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
@@ -246,7 +256,9 @@ describe('actions/bucket', function() {
                 expect(requestOptions).to.eql({
                     method: 'POST',
                     url: 'https://foo/b2api/v1/b2_get_upload_url',
-                    body: '{"bucketId":"1234abcd"}',
+                    data: {
+                        bucketId: '1234abcd'
+                    },
                     headers: { Authorization: 'unicorns and rainbows' }
                 });
             });
