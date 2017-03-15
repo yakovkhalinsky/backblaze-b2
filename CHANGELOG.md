@@ -4,6 +4,7 @@ Features
 - Added large file API support [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/22)
 
 Thanks to the contributors for this HUGE release
+- [Ivan Kalinin](https://github.com/IvanKalinin)
 - [crazyscience](https://github.com/crazyscience)
 
 
