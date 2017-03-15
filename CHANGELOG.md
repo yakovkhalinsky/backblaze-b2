@@ -1,3 +1,12 @@
+### v1.0.0 (March 15, 2017) - The large files release
+
+Features
+- Added large file API support [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/22)
+
+Thanks to the contributors for this HUGE release
+- [crazyscience](https://github.com/crazyscience)
+
+
 ### v0.9.12 (March 4, 2017) - The options release
 
 Fixes
