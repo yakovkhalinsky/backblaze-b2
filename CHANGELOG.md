@@ -1,3 +1,12 @@
+### v1.0.1 (April 22, 2017) - The small buffers release
+
+Features
+- Update Axios to support buffers < 8192 bytes [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/27)
+
+Thanks to the contributors for this release
+- [David Fox](https://github.com/obto)
+
+
 ### v1.0.0 (March 15, 2017) - The large files release
 
 Features
