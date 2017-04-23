@@ -1,3 +1,12 @@
+### v1.0.2 (April 23, 2017) - The fixed buffers release
+
+Fixes
+- Replace package node-sha1 with sha1 to fix [#19](https://github.com/yakovkhalinsky/backblaze-b2/issues/19) issue with sha1 hash of buffers [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/28)
+
+Thanks to the contributors for this release
+- [Aaron](https://github.com/ablankenship10)
+
+
 ### v1.0.1 (April 22, 2017) - The small buffers release
 
 Features
