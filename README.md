@@ -57,7 +57,8 @@ For this update, we've switched the back end HTTP request library from `request`
     // create bucket
     b2.createBucket(
       bucketName,
-      bucketType // one of `allPublic`, `allPrivate`
+      bucketType, // one of `allPublic`, `allPrivate`
+      bucketInfo // optional info object to be stored with the bucket. Useful for setting cache control: { "Cache-Control": "max-age=600" }
     );  // returns promise
 
     // delete bucket
@@ -67,7 +68,7 @@ For this update, we've switched the back end HTTP request library from `request`
     b2.listBuckets();  // returns promise
 
     // update bucket2
-    b2.updateBucket(bucketId, bucketType);  // returns promise
+    b2.updateBucket(bucketId, bucketType, bucketInfo);  // returns promise
 
     // get upload url
     b2.getUploadUrl(bucketId);  // returns promise
@@ -77,7 +78,7 @@ For this update, we've switched the back end HTTP request library from `request`
         uploadUrl: 'uploadUrl',
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
-        mime: '', // optonal mime type, will default to 'b2/x-auto' if not provided
+        mime: '', // optional mime type, will default to 'b2/x-auto' if not provided
         data: 'data' // this is expecting a Buffer not an encoded string,
         info: {
             // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
