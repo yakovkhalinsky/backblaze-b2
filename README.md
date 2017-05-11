@@ -113,7 +113,7 @@ var response = await this.b2.finishLargeFile({
 
 
 ### Usage
-
+```javascript
     var B2 = require('backblaze-b2');
 
     // All functions on the b2 instance return the response from the B2 API in the success callback
@@ -236,7 +236,7 @@ var response = await this.b2.finishLargeFile({
     b2.cancelLargeFile({
       fileId: 'fileId'
     }) // returns promise
-
+```
 
 ### Authors
 * Yakov Khalinsky (@yakovkhalinsky)
