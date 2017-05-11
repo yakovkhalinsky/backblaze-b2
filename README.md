@@ -78,7 +78,7 @@ For this update, we've switched the back end HTTP request library from `request`
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
         mime: '', // optonal mime type, will default to 'b2/x-auto' if not provided
-        data: 'data' // this is expecting a Buffer not an encoded string,
+        data: 'data', // this is expecting a Buffer not an encoded string,
         info: {
             // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
             // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
