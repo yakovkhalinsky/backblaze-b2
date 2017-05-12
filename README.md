@@ -2,12 +2,12 @@
 [![npm version](https://badge.fury.io/js/backblaze-b2.svg)](https://badge.fury.io/js/backblaze-b2) [![Build Status](https://travis-ci.org/yakovkhalinsky/backblaze-b2.svg?branch=master)](https://travis-ci.org/yakovkhalinsky/backblaze-b2)
 
 This library uses promises, so all actions on a `B2` instance return a promise in the following pattern
-
+``` javascript
     b2.instanceFunction(arg1, arg2).then(
         successFn(response) { ... },
         errorFn(err) { ... }
     );
-
+```
 
 ### Status of project
 
@@ -24,7 +24,7 @@ Make sure you use the `.editorconfig` in your IDE/editor when writing code.
 Pull Requests should include:
 
 *   Updated example in README.md
-*   Update exiting tests, or add new tests to cover code changes
+*   Update existing tests, or add new tests to cover code changes
 
 If you are adding tests, add these to `/test/unit`. Make sure the test is named `fooTest.js` and
 is located in a similar folder to the node module that is being tested.
@@ -38,8 +38,82 @@ For this update, we've switched the back end HTTP request library from `request`
 *  In v0.9.12, we added request progress reporting via the third parameter to `then()`. Because we are no longer using the same promise library, this functionality has been removed. However, progress reporting is still available by passing a callback function into the `b2.method()` that you're calling. See the documentation below for details.
 * In v0.9.x, `b2.downloadFileById()` accepted a `fileId` parameter as a String or Number. As of 1.0.0, the first parameter is now expected to be a plain Object of arguments.
 
-### Usage
 
+### Response Object
+
+Each request returns an object with
+
+status - int, html error Status
+
+statusText
+
+headers
+
+config
+
+request
+
+data - actual returned data from backblaze, https://www.backblaze.com/b2/docs/calling.html
+
+### Basic Example
+
+```javascript
+var B2 = require('backblaze-b2');
+
+var b2 = new B2({
+  accountId: '<accountId>',
+  applicationKey: 'applicationKey'
+});
+
+async function GetBuckets() {
+  try {
+    await b2.authorize();
+    var response = await b2.listBuckets()
+    console.log(response.data)
+  } catch (e){
+    console.log('Error getting buckets:', e)
+  }
+}
+```
+
+### Uploading Large Files
+
+To upload large files, you need to split the file into parts (between 5MB and 5GB) and upload each
+part seperately
+
+First, you initiate the large file upload to get the fileId
+
+```javascript
+var response = await this.b2.startLargeFile({bucketId: bucketID,fileName: fileName })
+var fileID = response.data.fileId
+```
+Then for each part you request an uploadUrl, and use the response to upload the part
+
+```javascript
+var response = await this.b2.getUploadPartUrl({fileId: this.fileID})
+
+var uploadURL = resp.data.uploadUrl
+var authToken = resp.data.authorizationToken
+
+response = await this.b2.uploadPart({
+          partNumber: parNum,
+          uploadUrl: uploadURL,
+          uploadAuthToken: authToken,
+          data: buf
+        })
+// status checks etc.
+```
+Then finish the uploadUrl
+```javascript
+var response = await this.b2.finishLargeFile({
+      fileId: this.fileID,
+      partSha1Array: parts.map(function(buf) {return sha1(buf)})
+    })
+```
+
+
+### Usage
+```javascript
     var B2 = require('backblaze-b2');
 
     // All functions on the b2 instance return the response from the B2 API in the success callback
@@ -78,7 +152,7 @@ For this update, we've switched the back end HTTP request library from `request`
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
         mime: '', // optonal mime type, will default to 'b2/x-auto' if not provided
-        data: 'data' // this is expecting a Buffer not an encoded string,
+        data: 'data', // this is expecting a Buffer not an encoded string,
         info: {
             // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
             // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
@@ -162,7 +236,7 @@ For this update, we've switched the back end HTTP request library from `request`
     b2.cancelLargeFile({
       fileId: 'fileId'
     }) // returns promise
-
+```
 
 ### Authors
 * Yakov Khalinsky (@yakovkhalinsky)
