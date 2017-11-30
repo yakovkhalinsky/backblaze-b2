@@ -399,6 +399,61 @@ describe('actions/file', function() {
 
     });
 
+    describe('getDownloadAuthorization', function() {
+        beforeEach(function() {
+            options = {
+                bucketId: '123abc',
+                fileNamePrefix: '/pets',
+                validDurationInSeconds: 604800,
+                b2ContentDisposition: 'some content disposition'
+            };
+        });
+
+        describe('with good response', function() {
+            beforeEach(function(done) {
+                response = { foo: '1234' };
+
+                file.getDownloadAuthorization(b2, options).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://foo/b2api/v1/b2_get_download_authorization',
+                    method: 'POST',
+                    headers:
+                    {
+                        Authorization: 'unicorns and rainbows'
+                    },
+                    data: {
+                        bucketId: '123abc',
+                        fileNamePrefix: '/pets',
+                        validDurationInSeconds: 604800,
+                        b2ContentDisposition: 'some content disposition'
+                    }
+                });
+                expect(actualResponse).to.eql(response);
+            });
+        });
+
+        describe('with error response', function() {
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                file.getDownloadAuthorization(b2, options).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+    });
+
     describe('downloadFileByName', function() {
 
         beforeEach(function() {

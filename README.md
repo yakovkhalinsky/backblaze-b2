@@ -187,6 +187,14 @@ var response = await this.b2.finishLargeFile({
     // get file info
     b2.getFileInfo(fileId);  // returns promise
 
+    // get download authorization
+    b2.getDownloadAuthorization({
+      bucketId: 'bucketId',
+      fileNamePrefix: 'fileNamePrefix',
+      validDurationInSeconds: 'validDurationInSeconds', // a number from 0 to 604800
+      b2ContentDisposition: 'b2ContentDisposition'
+    });  // returns promise
+
     // download file by name
     b2.downloadFileByName({
         bucketName: 'bucketName',
