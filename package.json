@@ -31,11 +31,11 @@
   "devDependencies": {
     "eslint": "^3.17.1",
     "expect.js": "^0.3.1",
-    "mocha": "^3.2.0"
+    "mocha": "^4.0.1"
   },
   "dependencies": {
-    "axios": "^0.16.1",
-    "q": "^1.4.1",
-    "sha1": "^1.1.0"
+    "axios": "^0.17.1",
+    "q": "^1.5.1",
+    "sha1": "^1.1.1"
   }
 }
