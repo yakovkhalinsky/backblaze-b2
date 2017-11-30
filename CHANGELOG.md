@@ -1,3 +1,12 @@
+### v1.0.3 (November 30, 2017) - The authorization release
+
+Features
+- Add get authorization function [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/37)
+
+Thanks to the contributors for this release
+- [Jared Reich](https://github.com/jaredreich)
+
+
 ### v1.0.2 (April 23, 2017) - The fixed buffers release
 
 Fixes
