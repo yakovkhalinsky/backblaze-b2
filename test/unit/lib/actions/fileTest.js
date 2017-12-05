@@ -178,6 +178,49 @@ describe('actions/file', function() {
 
         });
 
+        describe('with no hash specified', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content'
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should hash the data for x-bz-content-sha1 in headers', function() {
+                expect(requestOptions.headers['X-Bz-Content-Sha1']).to.equal('332e7f863695677895a406aff6d60acf7e84ea22');
+            });
+
+        });
+
+        describe('with hash specified', function() {
+
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    filename: 'foo.txt',
+                    data: 'some text file content',
+                    hash: 'my hash value'
+                };
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly set x-bz-content-sha1 in headers', function() {
+                expect(requestOptions.headers['X-Bz-Content-Sha1']).to.equal('my hash value');
+            });
+
+        });
+
     });
 
 
