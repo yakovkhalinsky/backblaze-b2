@@ -1,3 +1,12 @@
+### v1.0.4 (November 30, 2017) - The buffed release
+
+Features
+- Hash argument for uploadFile() [link](https://github.com/yakovkhalinsky/backblaze-b2/pull/39)
+
+Thanks to the contributors for this release
+- [Jamie Syme](https://github.com/jamiesyme)
+
+
 ### v1.0.3 (November 30, 2017) - The authorization release
 
 Features
