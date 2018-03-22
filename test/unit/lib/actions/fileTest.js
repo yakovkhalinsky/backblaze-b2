@@ -63,6 +63,7 @@ describe('actions/file', function() {
                     headers:
                     { Authorization: 'uploadauthtoken',
                         'Content-Type': 'b2/x-auto',
+                        'Content-Length': 22,
                         'X-Bz-File-Name': 'foo.txt',
                         'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22' },
                     data: 'some text file content',
@@ -115,6 +116,7 @@ describe('actions/file', function() {
                     {
                         Authorization: 'uploadauthtoken',
                         'Content-Type': 'b2/x-auto',
+                        'Content-Length': 22,
                         'X-Bz-File-Name': 'foo.txt',
                         'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22',
                         'X-Bz-Info-foo': 'bar',
