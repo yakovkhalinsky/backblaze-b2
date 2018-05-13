@@ -200,12 +200,14 @@ var response = await this.b2.finishLargeFile({
     b2.downloadFileByName({
         bucketName: 'bucketName',
         fileName: 'fileName',
+        responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
         onDownloadProgress: function(event) || null // progress monitoring
     });  // returns promise
 
     // download file by fileId
     b2.downloadFileById({
       fileId: 'fileId',
+      responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
       onDownloadProgress: function(event) || null // progress monitoring
     });  // returns promise
 
