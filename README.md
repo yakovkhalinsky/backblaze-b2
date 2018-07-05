@@ -151,6 +151,7 @@ var response = await this.b2.finishLargeFile({
         uploadUrl: 'uploadUrl',
         uploadAuthToken: 'uploadAuthToken',
         filename: 'filename',
+        contentLength: '', // optional contentLength, will default to data.byteLength if not provided
         mime: '', // optional mime type, will default to 'b2/x-auto' if not provided
         data: 'data', // this is expecting a Buffer, not an encoded string
         hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
