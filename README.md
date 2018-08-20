@@ -233,7 +233,8 @@ var response = await this.b2.finishLargeFile({
       partNumber: 'partNumber', // A number from 1 to 10000
       uploadUrl: 'uploadUrl',
       uploadAuthToken: 'uploadAuthToken', // comes from getUploadPartUrl();
-      data: Buffer // this is expecting a Buffer not an encoded string,
+      data: Buffer, // this is expecting a Buffer not an encoded string,
+      hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
       onUploadProgress: function(event) || null // progress monitoring
     }) // returns promise
 
