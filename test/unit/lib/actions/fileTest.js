@@ -59,6 +59,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://uploadUrl',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     { Authorization: 'uploadauthtoken',
@@ -111,6 +112,7 @@ describe('actions/file', function() {
             it('should properly add x-bz-info headers', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://uploadUrl',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     {
@@ -250,6 +252,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_list_file_names',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     {
@@ -309,6 +312,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_list_file_versions',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     {
@@ -365,6 +369,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_hide_file',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     {
@@ -467,6 +472,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_get_download_authorization',
+                    timeout: null,
                     method: 'POST',
                     headers:
                     {
@@ -543,6 +549,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://download/file/unicornBox/unicorns-and_rainbows!%40%23%24%25%5E%26.png',
+                    timeout: null,
                     encoding: null,
                     headers: {
                         Authorization: 'unicorns and rainbows'
@@ -606,6 +613,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://download/b2api/v1/b2_download_file_by_id?fileId=abcd1234',
+                    timeout: null,
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
@@ -666,6 +674,7 @@ describe('actions/file', function() {
             it('should set correct options and resolve with good response  (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
                     url: 'https://foo/b2api/v1/b2_delete_file_version',
+                    timeout: null,
                     method: 'POST',
                     headers: {
                         Authorization: 'unicorns and rainbows'
