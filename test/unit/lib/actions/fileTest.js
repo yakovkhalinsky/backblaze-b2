@@ -67,6 +67,7 @@ describe('actions/file', function() {
                         'X-Bz-File-Name': 'foo.txt',
                         'X-Bz-Content-Sha1': '332e7f863695677895a406aff6d60acf7e84ea22' },
                     data: 'some text file content',
+                    maxRedirects: 0,
                     onUploadProgress: null
                 });
                 expect(actualResponse).to.eql(response);
@@ -100,7 +101,8 @@ describe('actions/file', function() {
                     info: {
                         foo:  'bar',
                         unicorns: 'rainbows'
-                    }
+                    },
+                    maxRedirects: 0,
                 };
 
                 file.uploadFile(b2, options).then(function() {
@@ -122,6 +124,7 @@ describe('actions/file', function() {
                         'X-Bz-Info-foo': 'bar',
                         'X-Bz-Info-unicorns': 'rainbows'
                     },
+                    maxRedirects: 0,
                     data: 'some text file content',
                     onUploadProgress: null
                 });
