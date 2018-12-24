@@ -28,6 +28,9 @@
     "url": "https://github.com/yakovkhalinsky/backblaze-b2/issues"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=5.10.0"
+  },
   "devDependencies": {
     "eslint": "^5.11.0",
     "expect.js": "^0.3.1",
