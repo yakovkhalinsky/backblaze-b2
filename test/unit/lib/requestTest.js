@@ -1,6 +1,8 @@
-var expect = require('expect.js');
-var q = require('q');
+/* global describe, beforeEach, it */
 
+var expect = require('expect.js');
+
+const utils = require('../../../lib/utils');
 var request = require('../../../lib/request');
 
 describe('request', function() {
@@ -11,7 +13,7 @@ describe('request', function() {
 
         beforeEach(function() {
             bogusRequestModule = function(options, cb) {
-                var deferred = q.defer();
+                var deferred = new utils.Deferred();
                 cb(false, false, JSON.stringify(options), deferred);
 
                 return deferred.promise;

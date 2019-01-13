@@ -1,6 +1,8 @@
+/* global describe, beforeEach, it */
+
 var expect = require('expect.js');
 
-var utils = require('../../../lib/utils');
+const utils = require('../../../lib/utils');
 
 describe('utils', function() {
 

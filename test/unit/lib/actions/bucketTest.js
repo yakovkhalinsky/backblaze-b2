@@ -1,7 +1,9 @@
+/* global describe, beforeEach, it */
+
 var expect = require('expect.js');
-var q = require('q');
 
 var request = require('../../../../lib/request');
+const utils = require('../../../../lib/utils');
 var bucket = require('../../../../lib/actions/bucket');
 
 describe('actions/bucket', function() {
@@ -23,7 +25,7 @@ describe('actions/bucket', function() {
         };
 
         bogusRequestModule = function(options, cb) {
-            var deferred = q.defer();
+            var deferred = new utils.Deferred();
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(response), deferred);
 
@@ -49,7 +51,7 @@ describe('actions/bucket', function() {
             it('should set correct options and resolve with good response', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_create_bucket',
+                    url: 'https://foo/b2api/v2/b2_create_bucket',
                     method: 'POST',
                     data: {
                         accountId: '98765',
@@ -96,7 +98,7 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     method: 'POST',
-                    url: 'https://foo/b2api/v1/b2_delete_bucket',
+                    url: 'https://foo/b2api/v2/b2_delete_bucket',
                     data: {
                         accountId: '98765',
                         bucketId: '1234abcd'
@@ -156,7 +158,7 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     method: 'POST',
-                    url: 'https://foo/b2api/v1/b2_list_buckets',
+                    url: 'https://foo/b2api/v2/b2_list_buckets',
                     data: {
                         accountId: '98765'
                     },
@@ -205,7 +207,7 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     method: 'POST',
-                    url: 'https://foo/b2api/v1/b2_update_bucket',
+                    url: 'https://foo/b2api/v2/b2_update_bucket',
                     data: {
                         accountId: '98765',
                         bucketId: '1234abcd',
@@ -242,7 +244,7 @@ describe('actions/bucket', function() {
                 response = {
                     authorizationToken: 'this_is_your_auth_token',
                     bucketId: '1234abcd',
-                    uploadUrl: 'https://foo-001.backblaze.com/b2api/v1/b2_upload_file/abcd1234/unicorns_and_rainbows'
+                    uploadUrl: 'https://foo-001.backblaze.com/b2api/v2/b2_upload_file/abcd1234/unicorns_and_rainbows'
                 };
 
                 bucket.getUploadUrl(b2, '1234abcd').then(function(response) {
@@ -255,7 +257,7 @@ describe('actions/bucket', function() {
                 expect(actualResponse).to.eql(response);
                 expect(requestOptions).to.eql({
                     method: 'POST',
-                    url: 'https://foo/b2api/v1/b2_get_upload_url',
+                    url: 'https://foo/b2api/v2/b2_get_upload_url',
                     data: {
                         bucketId: '1234abcd'
                     },

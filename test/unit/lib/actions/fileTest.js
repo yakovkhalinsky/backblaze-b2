@@ -1,6 +1,8 @@
-var expect = require('expect.js');
-var q = require('q');
+/* global describe, beforeEach, it */
 
+var expect = require('expect.js');
+
+const utils = require('../../../../lib/utils');
 var request = require('../../../../lib/request');
 var file = require('../../../../lib/actions/file');
 
@@ -25,7 +27,7 @@ describe('actions/file', function() {
         };
 
         bogusRequestModule = function(options, cb) {
-            var deferred = q.defer();
+            var deferred = new utils.Deferred();
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(response), deferred);
             return deferred.promise;
@@ -252,7 +254,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_list_file_names',
+                    url: 'https://foo/b2api/v2/b2_list_file_names',
                     method: 'POST',
                     headers:
                     {
@@ -311,7 +313,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_list_file_versions',
+                    url: 'https://foo/b2api/v2/b2_list_file_versions',
                     method: 'POST',
                     headers:
                     {
@@ -367,7 +369,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_hide_file',
+                    url: 'https://foo/b2api/v2/b2_hide_file',
                     method: 'POST',
                     headers:
                     {
@@ -415,7 +417,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_get_file_info',
+                    url: 'https://foo/b2api/v2/b2_get_file_info',
                     method: 'POST',
                     headers:
                     {
@@ -469,7 +471,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_get_download_authorization',
+                    url: 'https://foo/b2api/v2/b2_get_download_authorization',
                     method: 'POST',
                     headers:
                     {
@@ -528,7 +530,7 @@ describe('actions/file', function() {
                 };
 
                 bogusRequestModule = function(options, cb) {
-                    var deferred = q.defer();
+                    var deferred = new utils.Deferred();
                     requestOptions = options;
                     cb(errorMessage, response, 'file contents', deferred);
 
@@ -591,7 +593,7 @@ describe('actions/file', function() {
                 };
 
                 bogusRequestModule = function(options, cb) {
-                    var deferred = q.defer();
+                    var deferred = new utils.Deferred();
                     requestOptions = options;
                     cb(errorMessage, response, 'file contents', deferred);
 
@@ -608,7 +610,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://download/b2api/v1/b2_download_file_by_id?fileId=abcd1234',
+                    url: 'https://download/b2api/v2/b2_download_file_by_id?fileId=abcd1234',
                     headers: {
                         Authorization: 'unicorns and rainbows'
                     },
@@ -668,7 +670,7 @@ describe('actions/file', function() {
 
             it('should set correct options and resolve with good response  (filename to be encoded)', function() {
                 expect(requestOptions).to.eql({
-                    url: 'https://foo/b2api/v1/b2_delete_file_version',
+                    url: 'https://foo/b2api/v2/b2_delete_file_version',
                     method: 'POST',
                     headers: {
                         Authorization: 'unicorns and rainbows'
