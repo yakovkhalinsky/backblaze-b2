@@ -230,7 +230,56 @@ describe('actions/file', function() {
 
     });
 
+    describe('uploadPart', function() {
 
+        describe('with good response and with specified hash', function() {
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    data: 'some text file content',
+                    partNumber: 3,
+                    hash: 'my hash value'
+                };
+
+                file.uploadPart(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly set x-bz-content-sha1 in headers', function() {
+                expect(requestOptions.headers['X-Bz-Content-Sha1']).to.equal('my hash value');
+            });
+
+            it('should properly set content-length in headers', function() {
+                expect(requestOptions.headers['Content-Length']).to.equal(22);
+            });
+
+            it('should properly set x-bz-part-number in headers', function() {
+                expect(requestOptions.headers['X-Bz-Part-Number']).to.equal(3);
+            });
+        });
+
+        describe('with good response and with no hash specified', function() {
+            beforeEach(function(done) {
+                options = {
+                    uploadUrl: 'https://uploadUrl',
+                    uploadAuthToken: 'uploadauthtoken',
+                    partNumber: 7,
+                    data: 'some text file content'
+                };
+
+                file.uploadPart(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should properly set x-bz-content-sha1 in headers', function() {
+                expect(requestOptions.headers['X-Bz-Content-Sha1']).to.equal('332e7f863695677895a406aff6d60acf7e84ea22');
+            });
+        });
+    });
+    
     describe('listFileNames', function() {
 
         beforeEach(function() {
