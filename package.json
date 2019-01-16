@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0"
+  },
+  "engines": {
+      "node": ">=10.0"
   }
 }
