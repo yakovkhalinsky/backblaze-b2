@@ -1,6 +1,8 @@
+/* global describe, beforeEach, it */
+
 var expect = require('expect.js');
 
-var utils = require('../../../lib/utils');
+const utils = require('../../../lib/utils');
 
 describe('utils', function() {
 
@@ -21,10 +23,9 @@ describe('utils', function() {
         });
 
         it('Should throw error given invalid accountId', function() {
-            var accountId = undefined;
             var applicationKey = 'rainbows';
             try {
-                utils.getAuthHeaderObject(accountId, applicationKey);
+                utils.getAuthHeaderObject(undefined, applicationKey);
             } catch (e) {
                 err = e;
             }
@@ -33,9 +34,8 @@ describe('utils', function() {
 
         it('Should throw error given invalid applicationKey', function() {
             var accountId = 'unicorns';
-            var applicationKey = undefined;
             try {
-                utils.getAuthHeaderObject(accountId, applicationKey);
+                utils.getAuthHeaderObject(accountId, undefined);
             } catch (e) {
                 err = e;
             }
@@ -53,9 +53,8 @@ describe('utils', function() {
         });
 
         it('Should throw error given b2 object is not defined or falsey', function() {
-            var b2 = undefined;
             try {
-                utils.getAuthHeaderObjectWithToken(b2);
+                utils.getAuthHeaderObjectWithToken(undefined);
             } catch (e) {
                 err = e;
             }

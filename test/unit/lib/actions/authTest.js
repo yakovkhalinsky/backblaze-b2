@@ -1,6 +1,8 @@
-var expect = require('expect.js');
-var q = require('q');
+/* global describe, beforeEach, it */
 
+var expect = require('expect.js');
+
+const utils = require('../../../../lib/utils');
 var request = require('../../../../lib/request');
 var auth = require('../../../../lib/actions/auth');
 
@@ -17,7 +19,7 @@ describe('actions/auth', function() {
         authResponse = null;
         actualAuthResponse = null;
         errorMessage = null;
-        deferred = q.defer();
+        deferred = new utils.Deferred();
 
         bogusAxiosModule = function(options) {
             requestOptions = options;

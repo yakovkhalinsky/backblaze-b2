@@ -1,13 +1,13 @@
 {
   "name": "backblaze-b2",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Node.js Library for the Backblaze B2 Storage Service",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint-all && npm run test-unit",
     "test-unit": "mocha \"test/**/*Test.js\"",
-    "lint-lib": "eslint \"lib/**/*.js\"",
-    "lint-test": "eslint \"test/**/*.js\" --global describe,it,beforeEach",
+    "lint-lib": "eslint \"lib/**/*.js\" --parser-options=ecmaVersion:6 --global Promise",
+    "lint-test": "eslint \"test/**/*.js\" --parser-options=ecmaVersion:6 --global describe,it,beforeEach,Promise",
     "lint-all": "npm run lint-lib && npm run lint-test"
   },
   "keywords": [
@@ -29,13 +29,14 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.17.1",
+    "eslint": "^5.12.0",
     "expect.js": "^0.3.1",
-    "mocha": "^4.0.1"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "q": "^1.5.1",
-    "sha1": "^1.1.1"
+    "axios": "^0.18.0"
+  },
+  "engines": {
+      "node": ">=10.0"
   }
 }
