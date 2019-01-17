@@ -77,23 +77,23 @@ part seperately
 First, you initiate the large file upload to get the fileId
 
 ```javascript
-let response = await this.b2.startLargeFile({bucketId, fileName})
-let fileID = response.data.fileId
+let response = await this.b2.startLargeFile({bucketId, fileName});
+let fileID = response.data.fileId;
 ```
 Then for each part you request an uploadUrl, and use the response to upload the part
 
 ```javascript
-let response = await this.b2.getUploadPartUrl({fileId: this.fileID})
+let response = await this.b2.getUploadPartUrl({fileId: this.fileID});
 
-let uploadURL = resp.data.uploadUrl
-let authToken = resp.data.authorizationToken
+let uploadURL = response.data.uploadUrl;
+let authToken = response.data.authorizationToken;
 
 response = await this.b2.uploadPart({
     partNumber: parNum,
     uploadUrl: uploadURL,
     uploadAuthToken: authToken,
     data: buf
-})
+});
 // status checks etc.
 ```
 Then finish the uploadUrl
