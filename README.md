@@ -3,10 +3,10 @@
 
 This library uses promises, so all actions on a `B2` instance return a promise in the following pattern
 ``` javascript
-    b2.instanceFunction(arg1, arg2).then(
-        successFn(response) { ... },
-        errorFn(err) { ... }
-    );
+b2.instanceFunction(arg1, arg2).then(
+    successFn(response) { ... },
+    errorFn(err) { ... }
+);
 ```
 
 ### Status of project
@@ -38,29 +38,22 @@ For this update, we've switched the back end HTTP request library from `request`
 *  In v0.9.12, we added request progress reporting via the third parameter to `then()`. Because we are no longer using the same promise library, this functionality has been removed. However, progress reporting is still available by passing a callback function into the `b2.method()` that you're calling. See the documentation below for details.
 * In v0.9.x, `b2.downloadFileById()` accepted a `fileId` parameter as a String or Number. As of 1.0.0, the first parameter is now expected to be a plain Object of arguments.
 
-
 ### Response Object
 
-Each request returns an object with
-
-status - int, html error Status
-
-statusText
-
-headers
-
-config
-
-request
-
-data - actual returned data from backblaze, https://www.backblaze.com/b2/docs/calling.html
+Each request returns an object with:
+- `status` - int, html error Status
+- `statusText`
+- `headers`
+- `config`
+- `request`
+- `data` - actual returned data from backblaze, https://www.backblaze.com/b2/docs/calling.html
 
 ### Basic Example
 
 ```javascript
-var B2 = require('backblaze-b2');
+const B2 = require('backblaze-b2');
 
-var b2 = new B2({
+const b2 = new B2({
   accountId: '<accountId>',
   applicationKey: 'applicationKey'
 });
@@ -68,7 +61,7 @@ var b2 = new B2({
 async function GetBuckets() {
   try {
     await b2.authorize();
-    var response = await b2.listBuckets()
+    let response = await b2.listBuckets()
     console.log(response.data)
   } catch (e){
     console.log('Error getting buckets:', e)
@@ -84,170 +77,169 @@ part seperately
 First, you initiate the large file upload to get the fileId
 
 ```javascript
-var response = await this.b2.startLargeFile({bucketId: bucketID,fileName: fileName })
-var fileID = response.data.fileId
+let response = await this.b2.startLargeFile({bucketId, fileName})
+let fileID = response.data.fileId
 ```
 Then for each part you request an uploadUrl, and use the response to upload the part
 
 ```javascript
-var response = await this.b2.getUploadPartUrl({fileId: this.fileID})
+let response = await this.b2.getUploadPartUrl({fileId: this.fileID})
 
-var uploadURL = resp.data.uploadUrl
-var authToken = resp.data.authorizationToken
+let uploadURL = resp.data.uploadUrl
+let authToken = resp.data.authorizationToken
 
 response = await this.b2.uploadPart({
-          partNumber: parNum,
-          uploadUrl: uploadURL,
-          uploadAuthToken: authToken,
-          data: buf
-        })
+    partNumber: parNum,
+    uploadUrl: uploadURL,
+    uploadAuthToken: authToken,
+    data: buf
+})
 // status checks etc.
 ```
 Then finish the uploadUrl
 ```javascript
-var response = await this.b2.finishLargeFile({
-      fileId: this.fileID,
-      partSha1Array: parts.map(function(buf) {return sha1(buf)})
-    })
+let response = await this.b2.finishLargeFile({
+    fileId: this.fileID,
+    partSha1Array: parts.map(buf => sha1(buf))
+})
 ```
-
 
 ### Usage
 ```javascript
-    var B2 = require('backblaze-b2');
+const B2 = require('backblaze-b2');
 
-    // All functions on the b2 instance return the response from the B2 API in the success callback
-    // i.e. b2.foo(...).then(function(b2JsonResponse) {})
+// All functions on the b2 instance return the response from the B2 API in the success callback
+// i.e. b2.foo(...).then(function(b2JsonResponse) {})
 
-    // create b2 object instance
-    var b2 = new B2({
-        accountId: 'accountId',
-        applicationKey: 'applicationKey'
-    });
+// create b2 object instance
+const b2 = new B2({
+    accountId: 'accountId',
+    applicationKey: 'applicationKey'
+});
 
-    // authorize with provided credentials
-    b2.authorize();  // returns promise
+// authorize with provided credentials
+b2.authorize();  // returns promise
 
-    // create bucket
-    b2.createBucket(
-      bucketName,
-      bucketType // one of `allPublic`, `allPrivate`
-    );  // returns promise
+// create bucket
+b2.createBucket(
+    bucketName,
+    bucketType // one of `allPublic`, `allPrivate`
+);  // returns promise
 
-    // delete bucket
-    b2.deleteBucket(bucketId);  // returns promise
+// delete bucket
+b2.deleteBucket(bucketId);  // returns promise
 
-    // list buckets
-    b2.listBuckets();  // returns promise
+// list buckets
+b2.listBuckets();  // returns promise
 
-    // update bucket2
-    b2.updateBucket(bucketId, bucketType);  // returns promise
+// update bucket2
+b2.updateBucket(bucketId, bucketType);  // returns promise
 
-    // get upload url
-    b2.getUploadUrl(bucketId);  // returns promise
+// get upload url
+b2.getUploadUrl(bucketId);  // returns promise
 
-    // upload file
-    b2.uploadFile({
-        uploadUrl: 'uploadUrl',
-        uploadAuthToken: 'uploadAuthToken',
-        filename: 'filename',
-        mime: '', // optional mime type, will default to 'b2/x-auto' if not provided
-        data: 'data', // this is expecting a Buffer, not an encoded string
-        hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
-        info: {
-            // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
-            // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
-            key1: value
-            key2: value
-        },
-        onUploadProgress: function(event) || null // progress monitoring
-    });  // returns promise
+// upload file
+b2.uploadFile({
+    uploadUrl: 'uploadUrl',
+    uploadAuthToken: 'uploadAuthToken',
+    filename: 'filename',
+    mime: '', // optional mime type, will default to 'b2/x-auto' if not provided
+    data: 'data', // this is expecting a Buffer, not an encoded string
+    hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
+    info: {
+        // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
+        // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
+        key1: 'value'
+        key2: 'value'
+    },
+    onUploadProgress: (event) => {} || null // progress monitoring
+});  // returns promise
 
-    // list file names
-    b2.listFileNames({
-        bucketId: 'bucketId',
-        startFileName: 'startFileName',
-        maxFileCount: 100,
-        delimiter: '',
-        prefix: ''
-    });  // returns promise
+// list file names
+b2.listFileNames({
+    bucketId: 'bucketId',
+    startFileName: 'startFileName',
+    maxFileCount: 100,
+    delimiter: '',
+    prefix: ''
+});  // returns promise
 
-    // list file versions
-    b2.listFileVersions({
-        bucketId: 'bucketId',
-        startFileName: 'startFileName',
-        maxFileCount: 100
-    });  // returns promise
+// list file versions
+b2.listFileVersions({
+    bucketId: 'bucketId',
+    startFileName: 'startFileName',
+    maxFileCount: 100
+});  // returns promise
 
-    // hide file
-    b2.hideFile({
-        bucketId: 'bucketId',
-        fileName: 'fileName'
-    });  // returns promise
+// hide file
+b2.hideFile({
+    bucketId: 'bucketId',
+    fileName: 'fileName'
+});  // returns promise
 
-    // get file info
-    b2.getFileInfo(fileId);  // returns promise
+// get file info
+b2.getFileInfo(fileId);  // returns promise
 
-    // get download authorization
-    b2.getDownloadAuthorization({
-      bucketId: 'bucketId',
-      fileNamePrefix: 'fileNamePrefix',
-      validDurationInSeconds: 'validDurationInSeconds', // a number from 0 to 604800
-      b2ContentDisposition: 'b2ContentDisposition'
-    });  // returns promise
+// get download authorization
+b2.getDownloadAuthorization({
+    bucketId: 'bucketId',
+    fileNamePrefix: 'fileNamePrefix',
+    validDurationInSeconds: 'validDurationInSeconds', // a number from 0 to 604800
+    b2ContentDisposition: 'b2ContentDisposition'
+});  // returns promise
 
-    // download file by name
-    b2.downloadFileByName({
-        bucketName: 'bucketName',
-        fileName: 'fileName',
-        responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
-        onDownloadProgress: function(event) || null // progress monitoring
-    });  // returns promise
+// download file by name
+b2.downloadFileByName({
+    bucketName: 'bucketName',
+    fileName: 'fileName',
+    responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+    onDownloadProgress: (event) => {} || null // progress monitoring
+});  // returns promise
 
-    // download file by fileId
-    b2.downloadFileById({
-      fileId: 'fileId',
-      responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
-      onDownloadProgress: function(event) || null // progress monitoring
-    });  // returns promise
+// download file by fileId
+b2.downloadFileById({
+    fileId: 'fileId',
+    responseType: 'arraybuffer', // options are as in axios: 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+    onDownloadProgress: (event) => {} || null // progress monitoring
+});  // returns promise
 
-    // delete file version
-    b2.deleteFileVersion({
-        fileId: 'fileId',
-        fileName: 'fileName'
-    });  // returns promise
+// delete file version
+b2.deleteFileVersion({
+    fileId: 'fileId',
+    fileName: 'fileName'
+});  // returns promise
 
-    // start large file
-    b2.startLargeFile({
-      bucketId: 'bucketId',
-      fileName: 'fileName'
-    }) // returns promise
+// start large file
+b2.startLargeFile({
+    bucketId: 'bucketId',
+    fileName: 'fileName'
+}); // returns promise
 
-    // get upload part url
-    b2.getUploadPartUrl({
-      fileId: 'fileId'
-    }) // returns promise
+// get upload part url
+b2.getUploadPartUrl({
+    fileId: 'fileId'
+}); // returns promise
 
-    // get upload part
-    b2.uploadPart({
-      partNumber: 'partNumber', // A number from 1 to 10000
-      uploadUrl: 'uploadUrl',
-      uploadAuthToken: 'uploadAuthToken', // comes from getUploadPartUrl();
-      data: Buffer // this is expecting a Buffer not an encoded string,
-      hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
-      onUploadProgress: function(event) || null // progress monitoring
-    }) // returns promise
+// get upload part
+b2.uploadPart({
+    partNumber: 'partNumber', // A number from 1 to 10000
+    uploadUrl: 'uploadUrl',
+    uploadAuthToken: 'uploadAuthToken', // comes from getUploadPartUrl();
+    data: Buffer // this is expecting a Buffer not an encoded string,
+    hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
+    onUploadProgress: (event) => {} || null // progress monitoring
+}); // returns promise
 
-    // finish large file
-    b2.finishLargeFile({
-      fileId: 'fileId',
-      partSha1Array: [partSha1Array] // array of sha1 for each part
-    }) // returns promise
+// finish large file
+b2.finishLargeFile({
+    fileId: 'fileId',
+    partSha1Array: [partSha1Array] // array of sha1 for each part
+}); // returns promise
 
-    // cancel large file
-    b2.cancelLargeFile({
-      fileId: 'fileId'
-    }) // returns promise
+// cancel large file
+b2.cancelLargeFile({
+    fileId: 'fileId'
+}); // returns promise
 ```
 
 ### Authors
