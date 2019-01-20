@@ -42,7 +42,7 @@ describe('actions/file', function() {
             options = {
                 uploadUrl: 'https://uploadUrl',
                 uploadAuthToken: 'uploadauthtoken',
-                filename: 'foo.txt',
+                fileName: 'foo.txt',
                 data: 'some text file content'
             };
         });
@@ -98,7 +98,7 @@ describe('actions/file', function() {
                 options = {
                     uploadUrl: 'https://uploadUrl',
                     uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
+                    fileName: 'foo.txt',
                     data: 'some text file content',
                     info: {
                         foo:  'bar',
@@ -140,7 +140,7 @@ describe('actions/file', function() {
                 options = {
                     uploadUrl: 'https://uploadUrl',
                     uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
+                    fileName: 'foo.txt',
                     data: 'some text file content',
                     info: {
                         foo:  'bar',
@@ -165,7 +165,7 @@ describe('actions/file', function() {
                 options = {
                     uploadUrl: 'https://uploadUrl',
                     uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
+                    fileName: 'foo.txt',
                     mime: 'foo/type',
                     data: 'some text file content',
                     info: {
@@ -191,7 +191,7 @@ describe('actions/file', function() {
                 options = {
                     uploadUrl: 'https://uploadUrl',
                     uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
+                    fileName: 'foo.txt',
                     data: 'some text file content'
                 };
 
@@ -212,7 +212,7 @@ describe('actions/file', function() {
                 options = {
                     uploadUrl: 'https://uploadUrl',
                     uploadAuthToken: 'uploadauthtoken',
-                    filename: 'foo.txt',
+                    fileName: 'foo.txt',
                     data: 'some text file content',
                     hash: 'my hash value'
                 };
@@ -279,7 +279,7 @@ describe('actions/file', function() {
             });
         });
     });
-    
+
     describe('listFileNames', function() {
 
         beforeEach(function() {
