@@ -2,7 +2,7 @@
 
 Features
 
-- Uses B2 v2 API. This allows you to use application keys with bucket restrictions.
+- Uses [B2 v2 API](https://www.backblaze.com/b2/docs/versions.html). This allows you to use application keys with [bucket restrictions](https://www.backblaze.com/b2/docs/application_keys.html#usingRestrictedKeys).
 - Updated minimum `nodejs` target to `10`
 - Updated documentation
 - [and more...](https://github.com/yakovkhalinsky/backblaze-b2/milestone/15?closed=1)
