@@ -1,3 +1,14 @@
+### v1.1.0 (January 27, 2017) - The B2 v2 release
+
+Features
+
+- Uses B2 v2 API. This allows you to use application keys with bucket restrictions.
+- Updated minimum `nodejs` target to `10`
+- Updated documentation
+- [and more...](https://github.com/yakovkhalinsky/backblaze-b2/milestone/15?closed=1)
+
+Thanks to the [contributors](https://github.com/yakovkhalinsky/backblaze-b2/graphs/contributors) for this release.
+
 ### v1.0.4 (November 30, 2017) - The buffed release
 
 Features
