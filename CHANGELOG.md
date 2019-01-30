@@ -1,3 +1,9 @@
+### v1.2.0 (January 30, 2017) - The getBucket release
+
+Features
+
+- Adds `B2.getBucket(...)` to help get bucket IDs with restricted bucket keys
+
 ### v1.1.0 (January 27, 2017) - The B2 v2 release
 
 Features
