@@ -1,18 +1,18 @@
 /* global describe, beforeEach, it */
 
-var expect = require('expect.js');
+const expect = require('expect.js');
 
-var request = require('../../../../lib/request');
+const request = require('../../../../lib/request');
 const utils = require('../../../../lib/utils');
-var bucket = require('../../../../lib/actions/bucket');
+const bucket = require('../../../../lib/actions/bucket');
 
 describe('actions/bucket', function() {
-    var requestOptions;
-    var bogusRequestModule;
-    var response;
-    var actualResponse;
-    var errorMessage;
-    var b2;
+    let requestOptions;
+    let bogusRequestModule;
+    let response;
+    let actualResponse;
+    let errorMessage;
+    let b2;
 
     beforeEach(function() {
         errorMessage = undefined;
@@ -25,7 +25,7 @@ describe('actions/bucket', function() {
         };
 
         bogusRequestModule = function(options, cb) {
-            var deferred = new utils.Deferred();
+            let deferred = new utils.Deferred();
             requestOptions = options;
             cb(errorMessage, false, JSON.stringify(response), deferred);
 

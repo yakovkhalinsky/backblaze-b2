@@ -40,17 +40,17 @@ Each request returns an object with:
 const B2 = require('backblaze-b2');
 
 const b2 = new B2({
-  accountId: '<accountId>',
-  applicationKey: 'applicationKey'
+  accountId: 'applicationKeyId', // or accountId
+  applicationKey: 'applicationKey' // or masterApplicationKey
 });
 
-async function GetBuckets() {
+async function GetBucket() {
   try {
-    await b2.authorize();
-    let response = await b2.listBuckets();
+    await b2.authorize(); // must authorize first
+    let response = await b2.getBucket({bucketName: 'my-bucket'});
     console.log(response.data);
   } catch (err) {
-    console.log('Error getting buckets:', err);
+    console.log('Error getting bucket:', err);
   }
 }
 ```
@@ -61,18 +61,18 @@ To upload large files, you need to split the file into parts (between 5MB and 5G
 
 First, you initiate the large file upload to get the fileId:
 ```javascript
-let response = await this.b2.startLargeFile({bucketId, fileName});
-let fileID = response.data.fileId;
+let response = await b2.startLargeFile({bucketId, fileName});
+let fileId = response.data.fileId;
 ```
 
-Then for each part you request an uploadUrl, and use the response to upload the part:
+Then for each part you request an `uploadUrl`, and use the response to upload the part:
 ```javascript
-let response = await this.b2.getUploadPartUrl({fileId: this.fileID});
+let response = await b2.getUploadPartUrl({fileId});
 
 let uploadURL = response.data.uploadUrl;
 let authToken = response.data.authorizationToken;
 
-response = await this.b2.uploadPart({
+response = await b2.uploadPart({
     partNumber: parNum,
     uploadUrl: uploadURL,
     uploadAuthToken: authToken,
@@ -83,8 +83,8 @@ response = await this.b2.uploadPart({
 
 Then finish the uploadUrl:
 ```javascript
-let response = await this.b2.finishLargeFile({
-    fileId: this.fileID,
+let response = await b2.finishLargeFile({
+    fileId,
     partSha1Array: parts.map(buf => sha1(buf))
 })
 ```
@@ -95,12 +95,12 @@ let response = await this.b2.finishLargeFile({
 const B2 = require('backblaze-b2');
 
 // All functions on the b2 instance return the response from the B2 API in the success callback
-// i.e. b2.foo(...).then(function(b2JsonResponse) {})
+// i.e. b2.foo(...).then((b2JsonResponse) => {})
 
-// create b2 object instance
+// create B2 object instance
 const b2 = new B2({
-    accountId: 'accountId',
-    applicationKey: 'applicationKey'
+    accountId: 'applicationKeyId', // or accountId
+    applicationKey: 'applicationKey' // or masterApplicationKey
 });
 
 // authorize with provided credentials
