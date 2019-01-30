@@ -118,7 +118,13 @@ b2.deleteBucket(bucketId);  // returns promise
 // list buckets
 b2.listBuckets();  // returns promise
 
-// update bucket2
+// get the bucket
+b2.getBucket({
+    bucketName, 
+    bucketId // optional
+});  // returns promise
+
+// update bucket
 b2.updateBucket(bucketId, bucketType);  // returns promise
 
 // get upload url

@@ -185,6 +185,81 @@ describe('actions/bucket', function() {
 
     });
 
+    describe('get', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                response = {
+                    buckets:[
+                        {
+                            accountId: '98765',
+                            bucketId: '1234abcd',
+                            bucketName: 'bucket-foo',
+                            bucketType: 'allPrivate',
+                            bucketInfo: {},
+                            corsRules: [],
+                            lifecycleRules: [],
+                            revision: 1
+                        }
+                    ]
+                };
+
+                bucket.get(b2, {bucketName: 'bucket-foo'}).then((response) => {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v2/b2_list_buckets',
+                    data: {
+                        accountId: '98765',
+                        bucketName: 'bucket-foo'
+                    },
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with response containing no buckets', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'unauthorized';
+
+                bucket.get(b2, {bucketName: 'not-a-real-bucket'}).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                // status code is 401
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                bucket.get(b2, {}).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
     describe('update', function() {
 
         describe('with good response', function() {
