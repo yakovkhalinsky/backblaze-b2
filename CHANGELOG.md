@@ -2,7 +2,7 @@
 
 Features
 
-- Adds `B2.getBucket(...)` to help get bucket IDs with restricted bucket keys
+- Adds `B2.getBucket(...)` to help get bucket IDs with restricted bucket keys. In B2 v2, `B2.listBuckets()` will respond with an error, if you authorize without the `master key`.
 
 ### v1.1.0 (January 27, 2017) - The B2 v2 release
 
