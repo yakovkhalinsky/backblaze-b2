@@ -100,8 +100,11 @@ const B2 = require('backblaze-b2');
 // create B2 object instance
 const b2 = new B2({
     accountId: 'applicationKeyId', // or accountId
-    applicationKey: 'applicationKey' // or masterApplicationKey
+    applicationKey: 'applicationKey', // or masterApplicationKey
     // optional:
+    axiosConfig: {
+        // overrides the axios instance default config
+    },
     retryConfig: {
         retries: 3 // this is the default
         // for additional options, see https://github.com/softonic/axios-retry
