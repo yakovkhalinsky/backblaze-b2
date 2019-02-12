@@ -101,6 +101,11 @@ const B2 = require('backblaze-b2');
 const b2 = new B2({
     accountId: 'applicationKeyId', // or accountId
     applicationKey: 'applicationKey' // or masterApplicationKey
+    // optional:
+    retryConfig: {
+        retries: 3 // this is the default
+        // for additional options, see https://github.com/softonic/axios-retry
+    }
 });
 
 // authorize with provided credentials
