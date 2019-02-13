@@ -102,10 +102,10 @@ const b2 = new B2({
     accountId: 'applicationKeyId', // or accountId
     applicationKey: 'applicationKey', // or masterApplicationKey
     // optional:
-    axiosConfig: {
+    axios: {
         // overrides the axios instance default config
     },
-    retryConfig: {
+    retry: {
         retries: 3 // this is the default
         // for additional options, see https://github.com/softonic/axios-retry
     }
