@@ -307,20 +307,12 @@ For this update, we've switched the back end HTTP request library from `request`
 
 Contributions, suggestions, and questions are welcome. Please review the [contributing guidelines](CONTRIBUTING.md) for details.
 
-<<<<<<< HEAD
 ### Authors and Contributors
-=======
-### Authors
->>>>>>> 99065f4a27c2db131beddf1819dc2929d9d1ac1c
 
 * Yakov Khalinsky (@yakovkhalinsky)
 * Ivan Kalinin (@IvanKalinin) at Isolary
 * Brandon Patton (@crazyscience) at Isolary
-<<<<<<< HEAD
 * C. Bess (@cbess)
 * Amit (@Amit-A)
 * Zsombor Paróczi (@realhidden)
 * Oden (@odensc)
-=======
-* Amit (@Amit-A)
->>>>>>> 99065f4a27c2db131beddf1819dc2929d9d1ac1c
