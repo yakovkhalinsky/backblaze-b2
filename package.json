@@ -34,9 +34,10 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "axios-retry": "^3.1.2"
   },
   "engines": {
-      "node": ">=10.0"
+    "node": ">=10.0"
   }
 }
