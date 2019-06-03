@@ -15,27 +15,40 @@ describe('utils', function() {
     });
 
     describe('getAuthHeaderObject', function() {
-        it('Should get header object with Base64 encoded Authorization header', function() {
-            var accountId = 'unicorns';
-            var applicationKey = 'rainbows';
-
-            expect(utils.getAuthHeaderObject(accountId, applicationKey)).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
+        it('Should get header object with Base64 encoded Authorization header using accountId', function() {
+            const b2 = {
+                accountId: 'unicorns',
+                applicationKey: 'rainbows'
+            };
+            expect(utils.getAuthHeaderObject(b2)).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
         });
 
-        it('Should throw error given invalid accountId', function() {
-            var applicationKey = 'rainbows';
+        it('Should get header object with Base64 encoded Authorization header using applicationKeyId', function() {
+            const b2 = {
+                applicationKeyId: 'unicorns',
+                applicationKey: 'rainbows'
+            };
+            expect(utils.getAuthHeaderObject(b2)).to.eql({ Authorization: 'Basic dW5pY29ybnM6cmFpbmJvd3M=' });
+        });
+
+        it('Should throw error given invalid accountId or applicationKeyId', function() {
+            const b2 = {
+                applicationKey: 'rainbows'
+            };
             try {
-                utils.getAuthHeaderObject(undefined, applicationKey);
+                utils.getAuthHeaderObject(b2);
             } catch (e) {
                 err = e;
             }
-            expect(err.message).to.be('Invalid accountId');
+            expect(err.message).to.be('Invalid accountId or applicationKeyId');
         });
 
         it('Should throw error given invalid applicationKey', function() {
-            var accountId = 'unicorns';
+            const b2 = {
+                accountId: 'unicorns'
+            };
             try {
-                utils.getAuthHeaderObject(accountId, undefined);
+                utils.getAuthHeaderObject(b2);
             } catch (e) {
                 err = e;
             }

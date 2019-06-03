@@ -24,7 +24,7 @@ b2.instanceFunction(arg1, arg2).then(
 const B2 = require('backblaze-b2');
 
 const b2 = new B2({
-  accountId: 'applicationKeyId', // or accountId
+  applicationKeyId: 'applicationKeyId', // or accountId: 'accountId'
   applicationKey: 'applicationKey' // or masterApplicationKey
 });
 
@@ -68,7 +68,7 @@ const B2 = require('backblaze-b2');
 
 // create B2 object instance
 const b2 = new B2({
-    accountId: 'applicationKeyId', // or accountId
+    applicationKeyId: 'applicationKeyId', // or accountId: 'accountId'
     applicationKey: 'applicationKey', // or masterApplicationKey
     // optional:
     axios: {
