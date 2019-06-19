@@ -1,10 +1,25 @@
-### v1.2.0 (January 30, 2017) - The getBucket release
+### v1.4.0 (June 3, 2019) - The Application Key / Streams release
+
+Features
+
+- Add `applicationKeyId` parameter for proper use of application keys. (#67 - thanks @phil-r)
+- Add contentLength param to uploadFile, allowing the use of Streams when uploading. (#73 - thanks @jamiesyme)
+- Allow underscores in info headers. (#70 - thanks @odensc)
+
+### v1.3.1 (February 25, 2019) - The Axios control release
+
+Features
+
+- Automatic retries on request failure (customizable)
+- Complete control of the axios instance at the request level (axios and axiosOverride args)
+
+### v1.2.0 (January 30, 2019) - The getBucket release
 
 Features
 
 - Adds `B2.getBucket(...)` to help get bucket IDs with restricted bucket keys. In B2 v2, `B2.listBuckets()` will respond with an error, if you authorize without the `master key`.
 
-### v1.1.0 (January 27, 2017) - The B2 v2 release
+### v1.1.0 (January 27, 2019) - The B2 v2 release
 
 Features
 
