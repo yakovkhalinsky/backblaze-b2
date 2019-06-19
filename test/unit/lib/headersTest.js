@@ -26,13 +26,15 @@ describe('headers', function() {
 
         it('should add the provided key/values to the headers properties of the options argument', function() {
             info = {
-                foo:  'bar',
+                under_score: 'under_score',
+                foo: 'bar',
                 unicorns: 'rainbows'
             };
 
             headers.addInfoHeaders(options, info);
 
             expect(options.headers).to.eql({
+                'X-Bz-Info-under_score': 'under_score',
                 'X-Bz-Info-foo': 'bar',
                 'X-Bz-Info-unicorns': 'rainbows'
             });
