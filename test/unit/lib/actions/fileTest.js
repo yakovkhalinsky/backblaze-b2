@@ -228,6 +228,23 @@ describe('actions/file', function() {
 
         });
 
+        describe('with contentLength specified', function() {
+
+            beforeEach(function(done) {
+                options.data = 'more than 3';
+                options.contentLength = 3;
+
+                file.uploadFile(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should override Content-Length header', function() {
+                expect(requestOptions.headers['Content-Length']).to.equal(3);
+            });
+
+        });
+
     });
 
     describe('uploadPart', function() {
