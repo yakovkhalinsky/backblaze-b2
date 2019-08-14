@@ -362,6 +362,7 @@ describe('actions/file', function() {
             options = {
                 bucketId: '123abc',
                 startFileName: 'unicorns.png',
+                startFileId: 'someID',
                 maxFileCount: 200
             };
         });
@@ -388,6 +389,7 @@ describe('actions/file', function() {
                     data: {
                         bucketId: '123abc',
                         startFileName: 'unicorns.png',
+                        startFileId: 'someID',
                         maxFileCount: 200
                     }
                 });
