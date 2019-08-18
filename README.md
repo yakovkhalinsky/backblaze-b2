@@ -167,6 +167,7 @@ b2.listFileNames({
 b2.listFileVersions({
     bucketId: 'bucketId',
     startFileName: 'startFileName',
+    startFileId: 'startFileId',
     maxFileCount: 100
     // ...common arguments (optional)
 });  // returns promise
