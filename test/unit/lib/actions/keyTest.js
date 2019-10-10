@@ -117,4 +117,142 @@ describe('actions/key', function() {
 
     });
 
+    describe('delete', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                const options = {
+                    applicationKeyId: '9876zyxw',
+                };
+
+                response = {
+                    keyName: 'my-key',
+                    applicationKeyId: '9876zyxw',
+                    capabilities: [
+                        'readFiles',
+                        'writeFiles',
+                    ],
+                    accountId: '98765',
+                    expirationTimestamp: 1570724488688,
+                    bucketId: '1234abcd',
+                    namePrefix: 'special_file_',
+                };
+
+                key.delete(b2, options).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v2/b2_delete_key',
+                    data: {
+                        applicationKeyId: '9876zyxw',
+                    },
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                const options = {
+                    applicationKeyId: 'invalid key id',
+                };
+
+                errorMessage = 'Something went wrong';
+
+                key.delete(b2, options).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
+    describe('list', function() {
+
+        describe('with good response', function() {
+
+            beforeEach(function(done) {
+                const options = {
+                    maxKeyCount: 10,
+                    startApplicationKeyId: 'my-key-1',
+                };
+
+                response = {
+                    keys: [
+                        {
+                            keyName: 'my-key-1',
+                            applicationKeyId: '9876zyxw',
+                            capabilities: [
+                                'readFiles',
+                                'writeFiles',
+                            ],
+                            accountId: '98765',
+                            expirationTimestamp: 1570724488688,
+                            bucketId: '1234abcd',
+                            namePrefix: 'special_file_',
+                        },
+                        {
+                            keyName: 'my-key-2',
+                            applicationKeyId: '8765yxwv',
+                            capabilities: [
+                                'readFiles',
+                            ],
+                            accountId: '98765',
+                        }
+                    ],
+                    nextApplicationKeyId: null,
+                };
+
+                key.list(b2, options).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(actualResponse).to.eql(response);
+                expect(requestOptions).to.eql({
+                    method: 'POST',
+                    url: 'https://foo/b2api/v2/b2_list_keys',
+                    data: {
+                        accountId: '98765',
+                        maxKeyCount: 10,
+                        startApplicationKeyId: 'my-key-1',
+                    },
+                    headers: { Authorization: 'unicorns and rainbows' }
+                });
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                key.list(b2).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+
+    });
+
 });
