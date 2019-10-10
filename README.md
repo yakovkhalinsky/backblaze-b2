@@ -254,6 +254,33 @@ b2.cancelLargeFile({
     fileId: 'fileId'
     // ...common arguments (optional)
 }); // returns promise
+
+// create key
+b2.createKey({
+    capabilities: [
+        'readFiles',                    // option 1
+        b2.KEY_CAPABILITIES.READ_FILES, // option 2
+        // see https://www.backblaze.com/b2/docs/b2_create_key.html for full list
+    ],
+    keyName: 'my-key-1', // letters, numbers, and '-' only, <=100 chars
+    validDurationInSeconds: 3600, // expire after duration (optional)
+    bucketId: 'bucketId', // restrict access to bucket (optional)
+    namePrefix: 'prefix_', // restrict access to file prefix (optional)
+    // ...common arguments (optional)
+});  // returns promise
+
+// delete key
+b2.deleteKey({
+    applicationKeyId: 'applicationKeyId',
+    // ...common arguments (optional)
+});  // returns promise
+
+// list keys
+b2.listKeys({
+    maxKeyCount: 10, // limit number of keys returned (optional)
+    startApplicationKeyId: '...', // use `nextApplicationKeyId` from previous response when `maxKeyCount` is set (optional)
+    // ...common arguments (optional)
+});  // returns promise
 ```
 
 ### Uploading Large Files Example
