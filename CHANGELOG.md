@@ -1,3 +1,10 @@
+### v1.5.0 (October 21, 2019) - The Key Operations release
+
+Features
+
+- Add support for key operations (#82 - thanks @jamiesyme)
+- Add support for `startFileId` for listFileVersions (#78 - thanks @ScottChapman)
+
 ### v1.4.0 (June 3, 2019) - The Application Key / Streams release
 
 Features
