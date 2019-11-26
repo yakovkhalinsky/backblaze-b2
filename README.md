@@ -294,7 +294,14 @@ let response = await b2.startLargeFile({ bucketId, fileName });
 let fileId = response.data.fileId;
 ```
 
-Then for each part you request an `uploadUrl`, and use the response to upload the part:
+Then, to upload parts, you request at least one `uploadUrl` and use the response to
+upload the part with `uploadPart`. The url and token returned by `getUploadPartUrl()`
+are valid for 24 hours or until `uploadPart()` fails, in which case you should request
+another `uploadUrl` to continue. You may utilize multiple `uploadUrl`s in parallel to
+achieve greater upload throughput.
+
+If you are unsure whether you should use multipart upload, refer to the `recommendedPartSize`
+valud returned by a call to `authorize()`.
 
 ```javascript
 let response = await b2.getUploadPartUrl({ fileId });
