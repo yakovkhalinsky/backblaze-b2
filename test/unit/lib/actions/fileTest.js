@@ -770,4 +770,70 @@ describe('actions/file', function() {
 
     });
 
+    describe('listParts', function() {
+        function buildPartsResponse(fileId, count) {
+            return {
+                parts: Array.from({length: count})
+                    .map((_, i) => ({
+                        fileId,
+                        partNumber: i + 1,
+                        contentLength: 10000,
+                        contentSha1: 'hash',
+                        uploadTimestamp: new Date().getTime() - (60 - Math.random(3600)) * 1000
+                    })),
+                nextPartNumber: count
+            };
+        }
+
+        beforeEach(function() {
+            options = {
+                fileId: 'abcd1234',
+                startPartNumber: 0,
+                maxPartCount: 1000
+            };
+        });
+
+        describe('with good response', function() {
+            beforeEach(function(done) {
+                response = buildPartsResponse('file-id', 200);
+
+                file.listParts(b2, options).then(function(response) {
+                    actualResponse = response;
+                    done();
+                });
+            });
+
+            it('should set correct options and resolve with good response', function() {
+                expect(requestOptions).to.eql({
+                    url: 'https://foo/b2api/v2/b2_list_parts',
+                    method: 'POST',
+                    headers: {
+                        Authorization: 'unicorns and rainbows'
+                    },
+                    data: {
+                        fileId: 'abcd1234',
+                        startPartNumber: 0,
+                        maxPartCount: 1000
+                    }
+                });
+                expect(actualResponse).to.eql(response);
+            });
+        });
+
+        describe('with error response', function() {
+
+            beforeEach(function(done) {
+                errorMessage = 'Something went wrong';
+
+                file.listParts(b2, options).then(null, function(error) {
+                    actualResponse = error;
+                    done();
+                });
+            });
+
+            it('Should respond with an error and reject promise', function() {
+                expect(actualResponse).to.be(errorMessage);
+            });
+        });
+    });
 });

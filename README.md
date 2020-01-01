@@ -172,6 +172,14 @@ b2.listFileVersions({
     // ...common arguments (optional)
 });  // returns promise
 
+// list uploaded parts for a large file
+b2.listParts({
+    fileId: 'fileId',
+    startPartNumber: 0, // optional
+    maxPartCount: 100, // optional (max: 1000)
+    // ...common arguments (optional)
+});  // returns promise
+
 // hide file
 b2.hideFile({
     bucketId: 'bucketId',
@@ -324,6 +332,18 @@ Then finish the uploadUrl:
 let response = await b2.finishLargeFile({
     fileId,
     partSha1Array: parts.map(buf => sha1(buf))
+})
+```
+
+If an upload is interrupted, the fileId can be used to get a list of parts
+which have already been transmitted. You can then send the remaining
+parts before finally calling `b2.finishLargeFile()`.
+
+```javascript
+let response = await b2.listParts({
+    fileId,
+    startPartNumber: 0,
+    maxPartCount: 1000
 })
 ```
 
