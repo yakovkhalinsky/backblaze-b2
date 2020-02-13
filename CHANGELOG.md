@@ -1,3 +1,9 @@
+### v1.6.0 (January 1, 2020) - The List Parts release
+
+Features
+
+- Add support for b2_list_parts (#84 - thanks @Klowner)
+
 ### v1.5.0 (October 21, 2019) - The Key Operations release
 
 Features
