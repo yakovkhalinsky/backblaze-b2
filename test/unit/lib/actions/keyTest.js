@@ -1,5 +1,3 @@
-/* global describe, beforeEach, it */
-
 const expect = require('expect.js');
 
 const request = require('../../../../lib/request');
