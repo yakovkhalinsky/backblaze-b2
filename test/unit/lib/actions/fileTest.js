@@ -295,6 +295,21 @@ describe('actions/file', function() {
                 expect(requestOptions.headers['X-Bz-Content-Sha1']).to.equal('332e7f863695677895a406aff6d60acf7e84ea22');
             });
         });
+
+        describe('with contentLength specified', function() {
+            beforeEach(function(done) {
+                options.data = 'more than 3';
+                options.contentLength = 3;
+
+                file.uploadPart(b2, options).then(function() {
+                    done();
+                });
+            });
+
+            it('should override Content-Length header', function() {
+                expect(requestOptions.headers['Content-Length']).to.equal(3);
+            });
+        });
     });
 
     describe('listFileNames', function() {
