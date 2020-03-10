@@ -246,7 +246,8 @@ b2.uploadPart({
     uploadAuthToken: 'uploadAuthToken', // comes from getUploadPartUrl();
     data: Buffer // this is expecting a Buffer not an encoded string,
     hash: 'sha1-hash', // optional data hash, will use sha1(data) if not provided
-    onUploadProgress: (event) => {} || null // progress monitoring
+    onUploadProgress: (event) => {} || null, // progress monitoring
+    contentLength: 0, // optional data length, will default to data.byteLength or data.length if not provided
     // ...common arguments (optional)
 }); // returns promise
 
