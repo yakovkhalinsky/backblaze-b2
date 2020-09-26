@@ -30,7 +30,7 @@ const b2 = new B2({
 
 async function GetBucket() {
   try {
-    await b2.authorize(); // must authorize first
+    await b2.authorize(); // must authorize first (authorization lasts 24 hrs)
     let response = await b2.getBucket({ bucketName: 'my-bucket' });
     console.log(response.data);
   } catch (err) {
@@ -91,7 +91,7 @@ const common_args = {
     }
 }
 
-// authorize with provided credentials
+// authorize with provided credentials (authorization expires after 24 hours)
 b2.authorize({
     // ...common arguments (optional)
 });  // returns promise
