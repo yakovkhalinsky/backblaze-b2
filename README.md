@@ -310,7 +310,7 @@ another `uploadUrl` to continue. You may utilize multiple `uploadUrl`s in parall
 achieve greater upload throughput.
 
 If you are unsure whether you should use multipart upload, refer to the `recommendedPartSize`
-valud returned by a call to `authorize()`.
+value returned by a call to `authorize()`.
 
 ```javascript
 let response = await b2.getUploadPartUrl({ fileId });
