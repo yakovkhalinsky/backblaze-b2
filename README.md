@@ -146,7 +146,7 @@ b2.uploadFile({
     info: {
         // optional info headers, prepended with X-Bz-Info- when sent, throws error if more than 10 keys set
         // valid characters should be a-z, A-Z and '-', all other characters will cause an error to be thrown
-        key1: 'value'
+        key1: 'value',
         key2: 'value'
     },
     onUploadProgress: (event) => {} || null // progress monitoring
