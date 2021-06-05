@@ -1,3 +1,13 @@
+### v1.7.0 (June 5, 2021) - The Maintenance release
+
+Fixes
+
+- Update dependencies
+
+Features
+
+- Add optional contentLength param to uploadPart (#92 - thanks @Klowner)
+
 ### v1.6.0 (January 1, 2020) - The List Parts release
 
 Features
