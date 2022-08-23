@@ -138,7 +138,7 @@ b2.getUploadUrl({
 b2.uploadFile({
     uploadUrl: 'uploadUrl',
     uploadAuthToken: 'uploadAuthToken',
-    fileName: 'fileName',
+    fileName: `${<if you have f*ckin file prefix provided in bucket settings>}fileName`,
     contentLength: 0, // optional data length, will default to data.byteLength or data.length if not provided
     mime: '', // optional mime type, will default to 'b2/x-auto' if not provided
     data: 'data', // this is expecting a Buffer, not an encoded string
