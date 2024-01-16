@@ -31,7 +31,7 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "expect.js": "^0.3.1",
-    "mocha": "^8.4.0"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "axios": "^1.6.2",
