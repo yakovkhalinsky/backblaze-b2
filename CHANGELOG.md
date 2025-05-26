@@ -1,3 +1,9 @@
+### v1.7.1 (May 26, 2025)
+
+Fixes
+
+- Update dependencies (#132 - thanks @ps73)
+
 ### v1.7.0 (June 5, 2021) - The Maintenance release
 
 Fixes
